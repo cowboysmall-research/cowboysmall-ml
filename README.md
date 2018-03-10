@@ -2,12 +2,19 @@
 
 ## Description ##
 
-this project contains simple implementations of many well-known machine learning algorithms:
 
-* classification
-* regression
+this project contains simple implementations of machine learning algorithms:
+
+
+* Decision Tree
+* Random Forest
+* Logistic Regression
+* Naive Bayes
+* Neural Network
+
 
 to run the examples:
+
 
 ```
 
