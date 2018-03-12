@@ -30,7 +30,7 @@ def main(argv):
 
     nn   = Network()
 
-    nn.add(InputLayer(4, learning = 0.1, regular = 0.01, momentum = 0.01))
+    nn.add(InputLayer(4,  learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(6, learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(6, learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(OutputLayer(3))

@@ -5,13 +5,14 @@ import numpy as np
 
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
+from ml.utilities.function      import ReLU, LeakyReLU
 from ml.utilities.preprocessing import one_hot
 
 from sklearn import preprocessing, model_selection, metrics
 
 
 def main(argv):
-    np.random.seed(1337)
+    np.random.seed(1341)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
@@ -30,7 +31,7 @@ def main(argv):
 
     nn   = Network()
 
-    nn.add(InputLayer(7, learning = 0.5, regular = 0, momentum = 0))
+    nn.add(InputLayer(7,  learning = 0.5, regular = 0, momentum = 0))
     nn.add(HiddenLayer(7, learning = 0.5, regular = 0, momentum = 0))
     nn.add(HiddenLayer(7, learning = 0.5, regular = 0, momentum = 0))
     nn.add(OutputLayer(3))

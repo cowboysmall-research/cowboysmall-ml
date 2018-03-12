@@ -5,6 +5,7 @@ import numpy as np
 
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer 
+from ml.utilities.function      import ReLU, LeakyReLU
 from ml.utilities.preprocessing import one_hot
 
 from sklearn import preprocessing, model_selection, metrics
@@ -30,12 +31,21 @@ def main(argv):
 
     nn   = Network()
 
-    nn.add(InputLayer(57, learning = 0.25, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
+    # nn.add(InputLayer(57,  learning = 0.25, regular = 0.01, momentum = 0.01))
+    # nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
+    # nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
+    # nn.add(OutputLayer(2))
+
+    # nn.fit(X, Y, batch = 250, epochs = 2000)
+
+    nn.add(InputLayer(57,   learning = 0.25, regular = 0.001, momentum = 0.0125))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(50,  learning = 0.25, regular = 0.001, momentum = 0.0125))
+    nn.add(HiddenLayer(10,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(OutputLayer(2))
 
-    nn.fit(X, Y, batch = 250, epochs = 2000)
+    nn.fit(X, Y, batch = 250, epochs = 1000)
 
     P    = nn.predict(X_t)
 

@@ -22,7 +22,6 @@ def main(argv):
     print()
 
 
-
     data = pd.read_csv('./data/csv/wine_white.csv', sep = ';')
     X    = data.drop(['quality'], axis = 1).values
     Y    = data.quality.values - 3
