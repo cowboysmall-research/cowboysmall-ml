@@ -4,13 +4,14 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.nb.nb import NaiveBayes
+from ml.classifiers.nb.nb       import NaiveBayes
+from ml.utilities.preprocessing import imbalanced
 
 from sklearn import model_selection, metrics
 
 
 def main(argv):
-    np.random.seed(1337)
+    np.random.seed(1339)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
@@ -20,12 +21,12 @@ def main(argv):
     print()
 
 
-    data  = pd.read_csv('./data/csv/wine_red.csv', sep = ';')
+    data  = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
     X     = data.drop(['quality'], axis = 1).values
-    Y     = data.quality.values - 3
+    Y     = data.quality.values
 
 
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)
+    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
 
 
 

@@ -1,18 +1,19 @@
 import sys
 import warnings
 
-import numpy as np
+import numpy  as np
 import pandas as pd
 
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer 
-from ml.utilities.preprocessing import one_hot
+from ml.utilities.function      import ReLU, LeakyReLU
+from ml.utilities.preprocessing import one_hot, imbalanced
 
 from sklearn import preprocessing, model_selection, metrics, feature_selection
 
 
 def main(argv):
-    np.random.seed(1337)
+    np.random.seed(2704)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
@@ -22,15 +23,14 @@ def main(argv):
     print()
 
 
-    data = pd.read_csv('./data/csv/wine_white.csv', sep = ';')
+    data = imbalanced.oversample(pd.read_csv('./data/csv/wine_white.csv', sep = ';'), 'quality')
     X    = data.drop(['quality'], axis = 1).values
-    Y    = data.quality.values - 3
+    Y    = data.quality.values
 
 
-    X    = feature_selection.SelectKBest(feature_selection.chi2, k = 9).fit_transform(X, Y)
     sclr = preprocessing.StandardScaler().fit(X)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, one_hot.forward(Y), train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, one_hot.forward(Y), train_size = 0.5)
 
     X    = sclr.transform(X)
     X_t  = sclr.transform(X_t)
@@ -38,20 +38,19 @@ def main(argv):
 
     nn   = Network()
 
-    nn.add(InputLayer(9, learning = 0.5, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(13, learning = 0.5, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(13, learning = 0.5, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(13, learning = 0.5, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(13, learning = 0.5, regular = 0.01, momentum = 0.01))
+    nn.add(InputLayer(11,   learning = 0.25, regular = 0.005, momentum = 0.01))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(50,  learning = 0.25, regular = 0.005, momentum = 0.01))
+    nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.005, momentum = 0.01))
     nn.add(OutputLayer(7))
 
     nn.fit(X, Y, batch = 200, epochs = 1000)
-
     P    = nn.predict(X_t)
+    P    = one_hot.reverse(P, 3)
+    Y_t  = one_hot.reverse(Y_t, 3)
 
 
-    P    = one_hot.reverse(P)
-    Y_t  = one_hot.reverse(Y_t)
 
 
     print()

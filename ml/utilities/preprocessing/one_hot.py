@@ -14,6 +14,6 @@ def forward(Y):
     return Y_n
 
 
-def reverse(Y):
-    return np.array([y.argmax() for y in Y])
+def reverse(Y, Y_min = 0):
+    return np.array([y.argmax() + Y_min for y in Y])
 

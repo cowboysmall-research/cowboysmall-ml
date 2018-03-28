@@ -31,13 +31,6 @@ def main(argv):
 
     nn   = Network()
 
-    # nn.add(InputLayer(64,  learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(HiddenLayer(52, learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(HiddenLayer(52, learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(OutputLayer(10))
-
-    # nn.fit(X, Y, batch = 250, epochs = 500)
-
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))

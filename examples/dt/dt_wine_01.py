@@ -4,14 +4,15 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.dt.tree import DecisionTree
-from ml.classifiers.dt.cost import gini, entropy
+from ml.classifiers.dt.tree     import DecisionTree
+from ml.classifiers.dt.cost     import gini, entropy
+from ml.utilities.preprocessing import imbalanced
 
 from sklearn import model_selection, metrics
 
 
 def main(argv):
-    # np.random.seed(1337)
+    np.random.seed(1337)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
@@ -21,7 +22,7 @@ def main(argv):
     print()
 
 
-    data  = pd.read_csv('./data/csv/wine_red.csv', sep = ';')
+    data  = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
     X     = data.iloc[:, :11]
     Y     = data.iloc[:, 11]
 

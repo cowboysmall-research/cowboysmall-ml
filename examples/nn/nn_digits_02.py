@@ -5,9 +5,8 @@ import numpy as np
 
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.function import ReLU, LeakyReLU
+from ml.utilities.function      import ReLU, LeakyReLU
 from ml.utilities.preprocessing import one_hot
-from ml.utilities.plot.confusion_matrix import confusion_matrix
 
 from sklearn import preprocessing, metrics
 
@@ -34,11 +33,6 @@ def main(argv):
 
     nn    = Network()
 
-    # nn.add(InputLayer(64,  learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(HiddenLayer(52, learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(HiddenLayer(52, learning = 0.5, regular = 0.001, momentum = 0.0125))
-    # nn.add(OutputLayer(10))
-
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
@@ -47,14 +41,12 @@ def main(argv):
     nn.add(OutputLayer(10))
 
     nn.fit(X, Y, batch = 250, epochs = 500)
-    # nn.fit(X, Y, batch = 250, epochs = 1000)
 
     P     = nn.predict(X_t)
 
 
     P     = one_hot.reverse(P)
     Y_t   = one_hot.reverse(Y_t)
-
 
 
     print()
@@ -70,9 +62,6 @@ def main(argv):
     print()
     print(metrics.confusion_matrix(Y_t, P))
     print()
-
-
-    # confusion_matrix(Y_t, P, list(range(10)))
 
 
 
