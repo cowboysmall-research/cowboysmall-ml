@@ -50,7 +50,7 @@ class AbstractNaiveBayes:
 class NaiveBayes(AbstractNaiveBayes):
 
     def calculate_priors(self, c):
-        return {key:value / float(len(c)) for key, value in  dict(Counter(c)).items()}
+        return {key:value / float(len(c)) for key, value in dict(Counter(c)).items()}
 
 
 

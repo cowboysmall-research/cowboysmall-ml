@@ -4,7 +4,7 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.nb.nb       import NaiveBayes
+from ml.classifiers.nb.nb       import NaiveBayes, GaussianNaiveBayes
 from ml.utilities.preprocessing import imbalanced
 
 from sklearn import model_selection, metrics
@@ -31,6 +31,7 @@ def main(argv):
 
 
     nb    = NaiveBayes()
+    # nb    = GaussianNaiveBayes()
     nb.fit(X, Y)
     Y_hat = nb.predict(X_t)
 

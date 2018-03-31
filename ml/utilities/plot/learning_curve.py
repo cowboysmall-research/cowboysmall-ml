@@ -19,6 +19,7 @@ def learning_curve(classifier, title, X, y, ylim = None, cv = None, jobs = 4, tr
 
     if ylim is not None:
         plt.ylim(*ylim)
+
     plt.xlabel('Training Data')
     plt.ylabel('Score')
 
