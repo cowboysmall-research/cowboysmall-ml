@@ -2,18 +2,26 @@
 import numpy as np
 
 
-def forward(Y):
-    Y_min = np.min(Y)
-    Y_max = np.max(Y)
-    Y_dim = Y_max - Y_min + 1
-    Y_n   = np.array([[0] * Y_dim for _ in range(Y.shape[0])])
+class OneHotEncoder(object):
 
-    for y_n, y in zip(Y_n, Y):
-        y_n[y - Y_min] = 1
-
-    return Y_n
+    def __init__(self, data):
+        self.items = list(set(data))
+        self.enc   = dict((item, i) for i, item in enumerate(self.items))
+        self.dec   = dict((i, item) for i, item in enumerate(self.items))
+        self.dim   = len(self.items)
 
 
-def reverse(Y, Y_min = 0):
-    return np.array([y.argmax() + Y_min for y in Y])
+    def encode(self, data):
+        encoded = []
+
+        for datum in data:
+            encode = [0] * self.dim
+            encode[self.enc[datum]] = 1
+            encoded.append(encode)
+
+        return np.array(encoded)
+
+
+    def decode(self, data):
+        return np.array([self.dec[datum.argmax()] for datum in data])
 

@@ -26,7 +26,9 @@ def main(argv):
     X    = preprocessing.scale(data[:, :7])
     Y    = data[:, 7].astype(int)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, one_hot.forward(Y), train_size = 0.75)
+    ohe  = one_hot.OneHotEncoder(Y)
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
 
     nn   = Network()
@@ -41,8 +43,8 @@ def main(argv):
     P    = nn.predict(X_t)
 
 
-    P    = one_hot.reverse(P)
-    Y_t  = one_hot.reverse(Y_t)
+    P    = ohe.decode(P)
+    Y_t  = ohe.decode(Y_t)
 
 
 
