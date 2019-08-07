@@ -1,24 +1,24 @@
 
+import os
+import datetime
+
 import numpy             as np
 import matplotlib.pyplot as plt
 
 from sklearn import model_selection
 
 
-def learning_curve(classifier, title, X, y, ylim = None, cv = None, jobs = 4, train_sizes = np.linspace(.1, 1.0, 5)):
+def learning_curve(name, title, classifier, X, y):
 
-    train_sizes, train_scores, test_scores = model_selection.learning_curve(classifier, X, y, cv = cv, n_jobs = jobs, train_sizes = train_sizes)
+    train_sizes, train_scores, test_scores = model_selection.learning_curve(classifier, X, y, train_sizes = np.linspace(.1, 1.0, 10))
 
     train_scores_mean = np.mean(train_scores, axis = 1)
     train_scores_std  = np.std(train_scores,  axis = 1)
     test_scores_mean  = np.mean(test_scores,  axis = 1)
     test_scores_std   = np.std(test_scores,   axis = 1)
 
-    plt.figure()
+    plt.clf()
     plt.title(title)
-
-    if ylim is not None:
-        plt.ylim(*ylim)
 
     plt.xlabel('Training Data')
     plt.ylabel('Score')
@@ -33,5 +33,11 @@ def learning_curve(classifier, title, X, y, ylim = None, cv = None, jobs = 4, tr
 
     plt.legend(loc = 'best')
 
-    plt.show()
+    out_dir = './images/{}/learning_curve'.format(datetime.date.today().strftime('%d%m%Y'))
+
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
+    plt.close()
 

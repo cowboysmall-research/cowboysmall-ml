@@ -1,4 +1,6 @@
 
+import os
+import datetime
 import itertools
 
 import numpy             as np
@@ -7,10 +9,10 @@ import matplotlib.pyplot as plt
 from sklearn import metrics, preprocessing
 
 
-def roc_curve(y_true, y_score, classes):
+def roc_curve(name, title, y_true, y_score, classes):
 
-    plt.figure()
-    plt.title('ROC Curve')
+    plt.clf()
+    plt.title(title)
 
     plt.xlabel('False Positive')
     plt.ylabel('True Positive')
@@ -20,12 +22,17 @@ def roc_curve(y_true, y_score, classes):
     y = preprocessing.label_binarize(y_true, classes)
 
     for i in range(len(classes)):
-        fp, tp, _ = metrics.roc_curve(y[i], y_score[i])
-        plt.plot(fp, tp, label = 'label {}'.format(classes[i]))
+        fp, tp, _ = metrics.roc_curve(y[:, i], y_score[:, i])
+        auc       = metrics.auc(fp, tp)
+        plt.plot(fp, tp, label = 'label {:2d}: AUC {:0.2f}'.format(int(classes[i]), auc))
 
     plt.legend(loc = 'best')
 
-    # plt.tight_layout()
+    out_dir = './images/{}/roc_curve'.format(datetime.date.today().strftime('%d%m%Y'))
 
-    plt.show()
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
+    plt.close()
 
