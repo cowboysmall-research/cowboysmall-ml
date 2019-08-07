@@ -6,7 +6,6 @@ import numpy as np
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
 from ml.utilities.function      import ReLU, LeakyReLU
-from ml.utilities.preprocessing import one_hot
 
 from sklearn import preprocessing, model_selection, metrics
 
@@ -43,8 +42,9 @@ def main(argv):
     P    = nn.predict(X_t)
 
 
-    P    = one_hot.reverse(P)
-    Y_t  = one_hot.reverse(Y_t)
+    P    = np.array([p.argmax() for p in P])
+    Y_t  = np.array([y.argmax() for y in Y_t])
+    
 
 
 

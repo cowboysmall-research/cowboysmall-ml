@@ -30,7 +30,9 @@ def main(argv):
 
     sclr = preprocessing.StandardScaler().fit(X)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, one_hot.forward(Y), train_size = 0.5)
+    ohe  = one_hot.OneHotEncoder(Y)
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.5)
 
     X    = sclr.transform(X)
     X_t  = sclr.transform(X_t)
@@ -45,10 +47,13 @@ def main(argv):
     nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.005, momentum = 0.01))
     nn.add(OutputLayer(6))
 
-    nn.fit(X, Y, batch = 200, epochs = 1000)
+    nn.fit(X, Y, batch = 500, epochs = 1000)
+
     P    = nn.predict(X_t)
-    P    = one_hot.reverse(P, 3)
-    Y_t  = one_hot.reverse(Y_t, 3)
+
+
+    P    = ohe.decode(P)
+    Y_t  = ohe.decode(Y_t)
 
 
 

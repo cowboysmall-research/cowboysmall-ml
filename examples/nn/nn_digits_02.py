@@ -24,11 +24,14 @@ def main(argv):
 
     train = np.loadtxt('./data/csv/digits_train.csv', delimiter = ',')
     X     = preprocessing.scale(train[:, :64])
-    Y     = one_hot.forward(train[:, 64].astype(int))
+    Y     = train[:, 64].astype(int)
 
     test  = np.loadtxt('./data/csv/digits_test.csv', delimiter = ',')
     X_t   = preprocessing.scale(test[:, :64])
-    Y_t   = one_hot.forward(test[:, 64].astype(int))
+    Y_t   = test[:, 64].astype(int)
+
+
+    ohe   = one_hot.OneHotEncoder(np.concatenate((Y, Y_t), axis = 0))
 
 
     nn    = Network()
@@ -40,13 +43,11 @@ def main(argv):
     nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(OutputLayer(10))
 
-    nn.fit(X, Y, batch = 250, epochs = 500)
+    nn.fit(X, ohe.encode(Y), batch = 250, epochs = 500)
 
     P     = nn.predict(X_t)
 
-
-    P     = one_hot.reverse(P)
-    Y_t   = one_hot.reverse(Y_t)
+    P     = ohe.decode(P)
 
 
     print()
