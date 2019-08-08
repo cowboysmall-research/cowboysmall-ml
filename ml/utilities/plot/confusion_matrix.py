@@ -1,4 +1,6 @@
 
+import os
+import datetime
 import itertools
 
 import numpy             as np
@@ -7,12 +9,12 @@ import matplotlib.pyplot as plt
 from sklearn import metrics
 
 
-def confusion_matrix(y_true, y_hat, classes):
+def confusion_matrix(name, title, y_true, y_hat, classes):
 
     cm = metrics.confusion_matrix(y_true, y_hat)
 
-    plt.figure()
-    plt.title('Confusion Matrix')
+    plt.clf()
+    plt.title(title)
 
     plt.xlabel('Predicted')
     plt.ylabel('True')
@@ -29,5 +31,11 @@ def confusion_matrix(y_true, y_hat, classes):
 
     plt.tight_layout()
 
-    plt.show()
+    out_dir = './images/{}/confusion_matrix'.format(datetime.date.today().strftime('%d%m%Y'))
+
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
+    plt.close()
 
