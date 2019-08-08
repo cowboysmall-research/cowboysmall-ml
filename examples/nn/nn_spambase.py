@@ -26,17 +26,12 @@ def main(argv):
     X    = preprocessing.scale(data[:, :57])
     Y    = data[:, 57].astype(int)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, one_hot.forward(Y), train_size = 0.75)
+    ohe  = one_hot.OneHotEncoder(Y)
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
 
     nn   = Network()
-
-    # nn.add(InputLayer(57,  learning = 0.25, regular = 0.01, momentum = 0.01))
-    # nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
-    # nn.add(HiddenLayer(40, learning = 0.25, regular = 0.01, momentum = 0.01))
-    # nn.add(OutputLayer(2))
-
-    # nn.fit(X, Y, batch = 250, epochs = 2000)
 
     nn.add(InputLayer(57,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
@@ -50,8 +45,8 @@ def main(argv):
     P    = nn.predict(X_t)
 
 
-    P    = one_hot.reverse(P)
-    Y_t  = one_hot.reverse(Y_t)
+    P    = ohe.decode(P)
+    Y_t  = ohe.decode(Y_t)
 
 
 
