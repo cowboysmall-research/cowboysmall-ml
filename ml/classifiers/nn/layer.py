@@ -1,4 +1,4 @@
-    
+
 import numpy as np
 
 from ml.utilities.function import ReLU, LeakyReLU, Tanh, Sigmoid, Identity
@@ -6,7 +6,7 @@ from ml.utilities.function import ReLU, LeakyReLU, Tanh, Sigmoid, Identity
 
 class ConnectedLayer:
 
-    def __init__(self, nodes, function = Identity(), learning = 0.1, regular = 0, momentum = 0.1):
+    def __init__(self, nodes, function = ReLU(), learning = 0.1, regular = 0, momentum = 0.1):
         self.nodes    = nodes
         self.function = function
         self.learning = learning
