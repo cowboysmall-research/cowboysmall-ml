@@ -1,14 +1,14 @@
 
 import numpy as np
 
-from ml.utilities.function import Sigmoid
+from ml.utilities.function.sigmoid import Logistic
 
 
 class LogisticRegression:
 
     def __init__(self, learning = 0.1, verbose = True):
         self.verbose = verbose
-        self.sigmoid = Sigmoid()
+        self.logistic = Logistic()
 
 
     def add_intercept(self, X): 
@@ -18,7 +18,7 @@ class LogisticRegression:
 
 
     def hypothesis(self, X):
-        return self.sigmoid.f(X @ self.theta)
+        return self.logistic.f(X @ self.theta)
 
 
     def cost(self, X, y):

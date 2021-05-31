@@ -4,10 +4,10 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.nn.network  import Network
-from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer 
-from ml.utilities.function      import ReLU, LeakyReLU
-from ml.utilities.preprocessing import one_hot, imbalanced
+from ml.classifiers.nn.network         import Network
+from ml.classifiers.nn.layer           import InputLayer, HiddenLayer, OutputLayer
+from ml.utilities.function.activation  import LeakyReLU
+from ml.utilities.preprocessing        import one_hot, imbalanced
 
 from sklearn import preprocessing, model_selection, metrics, feature_selection
 

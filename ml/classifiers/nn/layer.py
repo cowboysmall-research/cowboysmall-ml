@@ -1,7 +1,8 @@
 
 import numpy as np
 
-from ml.utilities.function import ReLU, LeakyReLU, Tanh, Sigmoid, Identity
+from ml.utilities.function.sigmoid import Tanh, Logistic
+from ml.utilities.function.activation import ReLU
 
 
 class ConnectedLayer:
@@ -64,7 +65,7 @@ class HiddenLayer(ConnectedLayer):
 
 class OutputLayer(ConnectedLayer):
 
-    def __init__(self, nodes, function = Sigmoid(), **kwargs):
+    def __init__(self, nodes, function = Logistic(), **kwargs):
         ConnectedLayer.__init__(self, nodes, function, **kwargs)
 
     def calculate_delta(self, labels):

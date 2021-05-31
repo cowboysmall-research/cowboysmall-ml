@@ -3,9 +3,9 @@ import warnings
 
 import numpy as np
 
-from ml.classifiers.nn.network  import Network
-from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.function      import ReLU, LeakyReLU
+from ml.classifiers.nn.network         import Network
+from ml.classifiers.nn.layer           import InputLayer, HiddenLayer, OutputLayer
+from ml.utilities.function.activation  import LeakyReLU
 
 from sklearn import preprocessing, model_selection, metrics
 
