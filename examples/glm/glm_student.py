@@ -23,7 +23,7 @@ def main(argv):
 
 
     X     = np.loadtxt('./data/csv/student_X.csv', delimiter = ',')
-    Y     = np.loadtxt('./data/csv/student_Y.csv', dtype = np.int)
+    Y     = np.loadtxt('./data/csv/student_Y.csv', dtype = int)
 
 
     logit = LogisticRegression()
