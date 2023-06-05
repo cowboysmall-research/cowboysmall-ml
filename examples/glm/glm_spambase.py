@@ -4,6 +4,7 @@ import warnings
 import numpy as np
 
 from ml.classifiers.glm.logit import LogisticRegression
+from ml.utilities.metrics     import confusion_matrix
 
 from sklearn import preprocessing, model_selection, metrics
 
@@ -47,7 +48,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_true, Y_hat))
     print()
 
 

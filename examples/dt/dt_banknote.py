@@ -6,6 +6,7 @@ import pandas as pd
 
 from ml.classifiers.dt.tree import DecisionTree
 from ml.classifiers.dt.cost import gini, entropy
+from ml.utilities.metrics   import confusion_matrix
 
 from sklearn import model_selection, metrics
 
@@ -50,7 +51,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_t, P))
+    print(confusion_matrix(Y_t, P))
     print()
 
 

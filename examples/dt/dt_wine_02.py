@@ -7,6 +7,7 @@ import pandas as pd
 from ml.classifiers.dt.tree     import DecisionTree
 from ml.classifiers.dt.cost     import gini, entropy
 from ml.utilities.preprocessing import imbalanced
+from ml.utilities.metrics       import confusion_matrix
 
 from sklearn import model_selection, metrics
 
