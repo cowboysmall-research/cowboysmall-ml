@@ -4,10 +4,11 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.nn.network         import Network
-from ml.classifiers.nn.layer           import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.function.activation  import LeakyReLU
-from ml.utilities.preprocessing        import one_hot, imbalanced
+from ml.classifiers.nn.network  import Network
+from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
+from ml.utilities.function      import LeakyReLU
+from ml.utilities.preprocessing import OneHotEncoder, oversample
+from ml.utilities.metrics       import confusion_matrix
 
 from sklearn import preprocessing, model_selection, metrics, feature_selection
 
@@ -23,14 +24,14 @@ def main(argv):
     print()
 
 
-    data = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
+    data = oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
     X    = data.drop(['quality'], axis = 1).values
     Y    = data.quality.values
 
 
     sclr = preprocessing.StandardScaler().fit(X)
 
-    ohe  = one_hot.OneHotEncoder(Y)
+    ohe  = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.5)
 
@@ -69,7 +70,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_t, P))
+    print(confusion_matrix(Y_t, P))
     print()
 
 
