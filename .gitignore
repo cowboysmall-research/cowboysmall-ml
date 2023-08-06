@@ -10,6 +10,8 @@
 **/*.py[cod]
 
 **/*.zip
+**/*.tar.gz
+**/*.gz
 
 *.egg
 *.egg-info

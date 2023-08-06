@@ -6,6 +6,7 @@ import pandas as pd
 
 from ml.classifiers.nb.nb       import NaiveBayes, GaussianNaiveBayes
 from ml.utilities.preprocessing import imbalanced
+from ml.utilities.metrics       import confusion_matrix
 
 from sklearn import model_selection, metrics
 
@@ -49,7 +50,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_true, Y_hat))
     print()
 
 

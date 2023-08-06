@@ -4,6 +4,7 @@ import warnings
 import numpy as np
 
 from ml.classifiers.nb.nb import GaussianNaiveBayes
+from ml.utilities.metrics import confusion_matrix
 
 from sklearn import model_selection, metrics
 
@@ -46,7 +47,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_true, Y_hat))
     print()
 
 
