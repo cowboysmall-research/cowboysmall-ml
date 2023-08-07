@@ -4,12 +4,12 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.rf.random_forest import RandomForest
-from ml.classifiers.dt.cost          import gini, entropy
-from ml.utilities.preprocessing      import imbalanced
-from ml.utilities.metrics            import confusion_matrix
-
 from sklearn import model_selection, metrics
+
+from cowboysmall.ml.classifiers.rf.random_forest import RandomForest
+from cowboysmall.ml.classifiers.dt.cost          import gini, entropy
+from cowboysmall.ml.utilities.preprocessing      import imbalanced
+from cowboysmall.ml.utilities.metrics            import confusion_matrix
 
 
 def main(argv):

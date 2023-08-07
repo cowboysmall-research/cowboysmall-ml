@@ -5,13 +5,13 @@ import gzip
 
 import numpy as np
 
-from ml.classifiers.nn.network  import Network
-from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.function      import LeakyReLU, ReLU
-from ml.utilities.preprocessing import OneHotEncoder
-from ml.utilities.metrics       import confusion_matrix
-
 from sklearn import preprocessing, model_selection, metrics
+
+from cowboysmall.ml.classifiers.nn.network  import Network
+from cowboysmall.ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.utilities.function      import LeakyReLU, ReLU
+from cowboysmall.ml.utilities.preprocessing import OneHotEncoder
+from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
 def main(argv):
@@ -33,12 +33,10 @@ def main(argv):
     X_t = preprocessing.scale(X_t)
 
 
-
     ohe = OneHotEncoder(Y)
 
 
-
-    nn   = Network()
+    nn  = Network()
 
     nn.add(InputLayer(784,  learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(512, learning = 0.1, regular = 0.01, momentum = 0, function = ReLU()))
@@ -46,6 +44,7 @@ def main(argv):
     nn.add(OutputLayer(10))
 
     nn.fit(X, ohe.encode(Y), batch = 1000, epochs = 40)
+
 
     P   = ohe.decode(nn.predict(X_t))
 

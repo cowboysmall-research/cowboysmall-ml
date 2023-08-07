@@ -5,8 +5,8 @@ import numpy as np
 from collections import Counter
 
 
-from ml.classifiers.dt.tree import DecisionTree
-from ml.classifiers.dt.cost import gini
+from cowboysmall.ml.classifiers.dt.tree import DecisionTree
+from cowboysmall.ml.classifiers.dt.cost import gini
 
 
 class RandomForest:

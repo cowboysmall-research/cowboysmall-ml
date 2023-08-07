@@ -4,11 +4,10 @@ import warnings
 import numpy             as np
 import matplotlib.pyplot as plt
 
-from ml.classifiers.glm.logit import LogisticRegression
-
 from matplotlib import style
+from sklearn    import preprocessing, model_selection, metrics
 
-from sklearn import preprocessing, model_selection, metrics
+from cowboysmall.ml.classifiers.glm.logit import LogisticRegression
 
 
 def main(argv):

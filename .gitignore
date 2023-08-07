@@ -17,3 +17,6 @@
 *.egg-info
 eggs
 develop-eggs
+
+.pytest_cache
+**/__pycache__

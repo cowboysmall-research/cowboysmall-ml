@@ -1,7 +1,7 @@
 
 import numpy as np
 
-from ml.utilities.function.sigmoid import Logistic
+from cowboysmall.ml.utilities.function.sigmoid import Logistic
 
 
 class LogisticRegression:

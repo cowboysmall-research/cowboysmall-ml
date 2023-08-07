@@ -3,10 +3,10 @@ import warnings
 
 import numpy as np
 
-from ml.classifiers.nb.nb import GaussianNaiveBayes
-from ml.utilities.metrics import confusion_matrix
-
 from sklearn import model_selection, metrics
+
+from cowboysmall.ml.classifiers.nb.nb import GaussianNaiveBayes
+from cowboysmall.ml.utilities.metrics import confusion_matrix
 
 
 def main(argv):
