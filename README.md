@@ -20,4 +20,4 @@ pip install cowboysmall-ml
 
 ## License
 
-`cowboysmall` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`cowboysmall-ml` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
