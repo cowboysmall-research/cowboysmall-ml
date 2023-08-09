@@ -5,7 +5,8 @@ import numpy as np
 
 from ml.classifiers.nn.network  import Network
 from ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.preprocessing import one_hot
+from ml.utilities.preprocessing import OneHotEncoder
+from ml.utilities.metrics       import confusion_matrix
 
 from sklearn import preprocessing, model_selection, metrics
 
@@ -25,7 +26,7 @@ def main(argv):
     X    = preprocessing.scale(data[:, :7])
     Y    = data[:, 7].astype(int)
 
-    ohe  = one_hot.OneHotEncoder(Y)
+    ohe  = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
@@ -58,7 +59,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_t, P))
+    print(confusion_matrix(Y_t, P))
     print()
 
 
