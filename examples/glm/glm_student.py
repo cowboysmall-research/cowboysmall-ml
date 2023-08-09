@@ -4,11 +4,11 @@ import warnings
 import numpy             as np
 import matplotlib.pyplot as plt
 
-from ml.classifiers.glm.logit import LogisticRegression
-
 from matplotlib import style
+from sklearn    import preprocessing, model_selection, metrics
 
-from sklearn import preprocessing, model_selection, metrics
+from cowboysmall.ml.classifiers.glm.logit import LogisticRegression
+from cowboysmall.ml.utilities.plot        import scatterplot
 
 
 def main(argv):
@@ -44,16 +44,9 @@ def main(argv):
     print()
 
 
-
-    X_p   = [min(X[:, 0]) - 5, max(X[:, 0]) + 5]
-    Y_p   = ((logit.theta[1] * X_p) + logit.theta[0]) / -logit.theta[2]
-
-
-    a     = plt.scatter(X[Y == 1][:, 0], X[Y == 1][:, 1], marker = '+', label = 'admitted')
-    n     = plt.scatter(X[Y == 0][:, 0], X[Y == 0][:, 1], marker = 'o', label = 'not admitted')
-    plt.plot(X_p, Y_p, label = 'decision boundary')
-    plt.legend((a, n), ('admitted', 'not admitted'))
-    plt.show()
+    X_d = [min(X[:, 0]) - 5, max(X[:, 0]) + 5]
+    Y_d = ((logit.theta[1] * X_d) + logit.theta[0]) / -logit.theta[2]
+    scatterplot('glm_student', 'Student', [X[Y == 1], X[Y == 0]], ['admitted', 'not admitted'], X_d, Y_d)
 
 
 

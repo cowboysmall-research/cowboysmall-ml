@@ -2,7 +2,7 @@ import unittest
 
 import numpy as np
 
-from ml.utilities.preprocessing import one_hot
+from cowboysmall.ml.utilities.preprocessing import one_hot
 
 
 class TestOneHot(unittest.TestCase):

@@ -4,10 +4,11 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from ml.classifiers.nb.nb       import NaiveBayes, GaussianNaiveBayes
-from ml.utilities.preprocessing import imbalanced
-
 from sklearn import model_selection, metrics
+
+from cowboysmall.ml.classifiers.nb.nb       import NaiveBayes, GaussianNaiveBayes
+from cowboysmall.ml.utilities.preprocessing import imbalanced
+from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
 def main(argv):
@@ -49,7 +50,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_true, Y_hat))
     print()
 
 

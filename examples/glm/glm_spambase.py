@@ -3,9 +3,10 @@ import warnings
 
 import numpy as np
 
-from ml.classifiers.glm.logit import LogisticRegression
-
 from sklearn import preprocessing, model_selection, metrics
+
+from cowboysmall.ml.classifiers.glm.logit import LogisticRegression
+from cowboysmall.ml.utilities.metrics     import confusion_matrix
 
 
 def main(argv):
@@ -47,7 +48,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(metrics.confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_true, Y_hat))
     print()
 
 

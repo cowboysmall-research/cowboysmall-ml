@@ -3,12 +3,12 @@ import warnings
 
 import numpy as np
 
-from ml.classifiers.nn.network import Network
-from ml.classifiers.nn.layer   import InputLayer, HiddenLayer, OutputLayer
-from ml.utilities.function     import LeakyReLU
-from ml.utilities.metrics      import confusion_matrix
-
 from sklearn import preprocessing, model_selection, metrics
+
+from cowboysmall.ml.classifiers.nn.network import Network
+from cowboysmall.ml.classifiers.nn.layer   import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.utilities.function     import LeakyReLU
+from cowboysmall.ml.utilities.metrics      import confusion_matrix
 
 
 def main(argv):

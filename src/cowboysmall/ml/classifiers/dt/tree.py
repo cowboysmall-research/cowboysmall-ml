@@ -2,8 +2,8 @@
 import numpy as np
 
 
-from ml.classifiers.dt.node import Node, LeafNode
-from ml.classifiers.dt.cost import gini
+from cowboysmall.ml.classifiers.dt.node import Node, LeafNode
+from cowboysmall.ml.classifiers.dt.cost import gini
 
 
 class DecisionTree:

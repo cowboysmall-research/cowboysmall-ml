@@ -10,8 +10,13 @@
 **/*.py[cod]
 
 **/*.zip
+**/*.tar.gz
+**/*.gz
 
 *.egg
 *.egg-info
 eggs
 develop-eggs
+
+.pytest_cache
+**/__pycache__

@@ -1,8 +1,8 @@
 
 import numpy as np
 
-from ml.utilities.function.sigmoid import Tanh, Logistic
-from ml.utilities.function.activation import ReLU
+from cowboysmall.ml.utilities.function.sigmoid import Tanh, Logistic
+from cowboysmall.ml.utilities.function.activation import ReLU
 
 
 class ConnectedLayer:
