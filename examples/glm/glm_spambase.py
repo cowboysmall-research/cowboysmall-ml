@@ -13,46 +13,35 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
+    X = preprocessing.scale(data[:, :57])
+    Y = data[:, 57].astype(int)
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
+
+    logit = LogisticRegression()
+    logit.fit(X, Y)
+    P = logit.predict(X_t)
+
+    Y_hat = np.round(P)
 
     print()
     print('Classification Experiment: Spambase')
     print()
-
-
-    data  = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
-    X     = preprocessing.scale(data[:, :57])
-    Y     = data[:, 57].astype(int)
-
-
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)
-
-
-
-    logit = LogisticRegression()
-    logit.fit(X, Y)
-    P     = logit.predict(X_t)
-
-
-    Y_hat = np.round(P)
-
-
-
     print()
     print()
     print()
-    print('                   Result: {:.2f}% Correct'.format(100 * (Y_true == Y_hat).sum() / float(len(Y_true))))
+    print('                   Result: {:.2f}% Correct'.format(100 * (Y_t == Y_hat).sum() / float(len(Y_t))))
     print()
     print('    Classification Report:')
     print()
-    print(metrics.classification_report(Y_true, Y_hat))
+    print(metrics.classification_report(Y_t, Y_hat))
     print()
     print('         Confusion Matrix:')
     print()
-    print(confusion_matrix(Y_true, Y_hat))
+    print(confusion_matrix(Y_t, Y_hat))
     print()
-
 
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-

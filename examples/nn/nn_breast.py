@@ -16,40 +16,29 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-
-    print()
-    print('Classification Experiment: Breast')
-    print()
-
-
     data = np.loadtxt('./data/csv/breast.csv', delimiter = ',')
-    X    = preprocessing.scale(data[:, 2:])
-    Y    = data[:, 1].astype(int)
+    X = preprocessing.scale(data[:, 2:])
+    Y = data[:, 1].astype(int)
 
-    ohe  = OneHotEncoder(Y)
+    ohe = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
-
-    nn   = Network()
-
+    nn = Network()
     nn.add(InputLayer(9,   learning = 0.1, regular = 0.001, momentum = 0.01))
     nn.add(HiddenLayer(12, learning = 0.1, regular = 0.001, momentum = 0.01))
     nn.add(HiddenLayer(12, learning = 0.1, regular = 0.001, momentum = 0.01))
     nn.add(HiddenLayer(12, learning = 0.1, regular = 0.001, momentum = 0.01))
     nn.add(HiddenLayer(12, learning = 0.1, regular = 0.001, momentum = 0.01))
     nn.add(OutputLayer(6))
-
     nn.fit(X, Y, batch = 50, epochs = 1000)
 
-    P    = nn.predict(X_t)
+    P   = ohe.decode(nn.predict(X_t))
+    Y_t = ohe.decode(Y_t)
 
-
-    P    = ohe.decode(P)
-    Y_t  = ohe.decode(Y_t)
-
-
-
+    print()
+    print('Classification Experiment: Breast')
+    print()
     print()
     print()
     print()
@@ -65,7 +54,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

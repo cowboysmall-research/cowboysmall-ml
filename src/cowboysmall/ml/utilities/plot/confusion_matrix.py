@@ -1,23 +1,24 @@
-
 import os
 import datetime
 import itertools
 
-import numpy             as np
+import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn import metrics
+from matplotlib import style
 
 
 def confusion_matrix(name, title, y_true, y_hat, classes):
-
-    cm = metrics.confusion_matrix(y_true, y_hat)
+    style.use("ggplot")
 
     plt.clf()
     plt.title(title)
 
     plt.xlabel('Predicted')
     plt.ylabel('True')
+
+    cm = metrics.confusion_matrix(y_true, y_hat)
 
     plt.imshow(cm, interpolation = 'nearest', cmap = plt.cm.Blues)
     plt.colorbar()
@@ -38,4 +39,3 @@ def confusion_matrix(name, title, y_true, y_hat, classes):
 
     plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
     plt.close()
-

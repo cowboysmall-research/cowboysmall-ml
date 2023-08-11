@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -19,4 +18,3 @@ class Tanh:
 
     def f_prime(self, y):
         return 1 - (y * y)
-

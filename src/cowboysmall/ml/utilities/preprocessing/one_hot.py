@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -6,9 +5,9 @@ class OneHotEncoder(object):
 
     def __init__(self, data):
         self.items = list(set(data))
-        self.enc   = dict((item, i) for i, item in enumerate(self.items))
-        self.dec   = dict((i, item) for i, item in enumerate(self.items))
-        self.dim   = len(self.items)
+        self.enc = dict((item, i) for i, item in enumerate(self.items))
+        self.dec = dict((i, item) for i, item in enumerate(self.items))
+        self.dim = len(self.items)
 
 
     def encode(self, data):
@@ -24,4 +23,3 @@ class OneHotEncoder(object):
 
     def decode(self, data):
         return np.array([self.dec[datum.argmax()] for datum in data])
-

@@ -1,14 +1,17 @@
-
 import os
 
-import numpy             as np
+import numpy as np
 import matplotlib.pyplot as plt
 
-from typing       import List
+from matplotlib import style
+
+from typing import List
 from numpy.typing import NDArray
 
 
 def scatterplot(name: str, title: str, O_s: List[NDArray[np.uint8]], L_s: List[str], X_d: NDArray[np.uint8], Y_d: NDArray[np.uint8]) -> None:
+    style.use("ggplot")
+
     plt.clf()
     plt.title(title)
 
@@ -22,4 +25,3 @@ def scatterplot(name: str, title: str, O_s: List[NDArray[np.uint8]], L_s: List[s
 
     plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
     plt.close()
-

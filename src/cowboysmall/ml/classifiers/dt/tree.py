@@ -1,6 +1,4 @@
-
 import numpy as np
-
 
 from cowboysmall.ml.classifiers.dt.node import Node, LeafNode
 from cowboysmall.ml.classifiers.dt.cost import gini

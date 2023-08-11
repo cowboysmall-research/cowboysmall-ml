@@ -16,30 +16,21 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = pd.read_csv('./data/csv/banknote.csv', names = ['Variance', 'Skewness', 'Curtosis', 'Entropy', 'Class'])
+    X = data.iloc[:, :4]
+    Y = data.iloc[:, 4]
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
+
+    # dt = DecisionTree(cost = entropy)
+    dt = DecisionTree(cost = gini)
+    dt.fit(X, Y)
+    P = dt.predict(X_t)
 
     print()
     print('Classification Experiment: Banknote')
     print()
-
-
-    data  = pd.read_csv('./data/csv/banknote.csv', names = ['Variance', 'Skewness', 'Curtosis', 'Entropy', 'Class'])
-    X     = data.iloc[:, :4]
-    Y     = data.iloc[:, 4]
-
-
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
-
-
-    # dt    = DecisionTree(cost = entropy)
-    dt    = DecisionTree(cost = gini)
-    dt.fit(X, Y)
-    P     = dt.predict(X_t)
-
-
     print(dt)
-
-
-
     print()
     print()
     print()
@@ -55,7 +46,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

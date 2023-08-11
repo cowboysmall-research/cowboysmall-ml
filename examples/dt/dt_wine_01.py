@@ -17,30 +17,21 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
+    X = data.iloc[:, :11]
+    Y = data.iloc[:, 11]
+
+    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
+
+    dt = DecisionTree(cost = entropy)
+    # dt = DecisionTree(cost = gini)
+    dt.fit(X, Y)
+    P = dt.predict(X_t)
 
     print()
     print('Classification Experiment: Red Wine')
     print()
-
-
-    data  = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
-    X     = data.iloc[:, :11]
-    Y     = data.iloc[:, 11]
-
-
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
-
-
-    dt    = DecisionTree(cost = entropy)
-    # dt    = DecisionTree(cost = gini)
-    dt.fit(X, Y)
-    P     = dt.predict(X_t)
-
-
     print(dt)
-
-
-
     print()
     print()
     print()
@@ -56,7 +47,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

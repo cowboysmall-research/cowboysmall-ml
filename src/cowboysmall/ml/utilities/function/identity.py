@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -9,4 +8,3 @@ class Identity:
 
     def f_prime(self, y):
         return y
-

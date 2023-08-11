@@ -1,4 +1,3 @@
-
 import numpy as np
 
 from cowboysmall.ml.utilities.function.sigmoid import Logistic

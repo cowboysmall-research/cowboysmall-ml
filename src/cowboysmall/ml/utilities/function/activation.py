@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -19,4 +18,3 @@ class LeakyReLU:
 
     def f_prime(self, y):
         return np.where(y > 0, 1, 0.01)
-

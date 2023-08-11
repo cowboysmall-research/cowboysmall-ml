@@ -14,28 +14,19 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
+    X = data[:, :57]
+    Y = data[:, 57].astype(int)
+
+    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)
+
+    nb = GaussianNaiveBayes()
+    nb.fit(X, Y)
+    Y_hat = nb.predict(X_t)
 
     print()
     print('Classification Experiment: Spambase')
     print()
-
-
-    data  = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
-    X     = data[:, :57]
-    Y     = data[:, 57].astype(int)
-
-
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)
-
-
-
-    nb    = GaussianNaiveBayes()
-    nb.fit(X, Y)
-    Y_hat = nb.predict(X_t)
-
-
-
-
     print()
     print()
     print()
@@ -51,7 +42,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

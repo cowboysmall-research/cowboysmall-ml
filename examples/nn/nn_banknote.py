@@ -16,38 +16,27 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-
-    print()
-    print('Classification Experiment: Banknote')
-    print()
-
-
     data = np.loadtxt('./data/csv/banknote.csv', delimiter = ',')
-    X    = preprocessing.scale(data[:, :4])
-    Y    = data[:, 4].astype(int)
+    X = preprocessing.scale(data[:, :4])
+    Y = data[:, 4].astype(int)
 
-    ohe  = OneHotEncoder(Y)
+    ohe = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
-
-    nn   = Network()
-
+    nn = Network()
     nn.add(InputLayer(4,  learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(6, learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(6, learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(OutputLayer(2))
-
     nn.fit(X, Y, batch = 100, epochs = 1000)
 
-    P    = nn.predict(X_t)
+    P   = ohe.decode(nn.predict(X_t))
+    Y_t = ohe.decode(Y_t)
 
-
-    P    = ohe.decode(P)
-    Y_t  = ohe.decode(Y_t)
-
-
-
+    print()
+    print('Classification Experiment: Banknote')
+    print()
     print()
     print()
     print()
@@ -63,7 +52,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

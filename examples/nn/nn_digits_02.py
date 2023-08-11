@@ -17,40 +17,30 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-
-    print()
-    print('Classification Experiment: Digits')
-    print()
-
-
     train = np.loadtxt('./data/csv/digits_train.csv', delimiter = ',')
-    X     = preprocessing.scale(train[:, :64])
-    Y     = train[:, 64].astype(int)
+    X = preprocessing.scale(train[:, :64])
+    Y = train[:, 64].astype(int)
 
-    test  = np.loadtxt('./data/csv/digits_test.csv', delimiter = ',')
-    X_t   = preprocessing.scale(test[:, :64])
-    Y_t   = test[:, 64].astype(int)
+    test = np.loadtxt('./data/csv/digits_test.csv', delimiter = ',')
+    X_t = preprocessing.scale(test[:, :64])
+    Y_t = test[:, 64].astype(int)
 
+    ohe = OneHotEncoder(np.concatenate((Y, Y_t), axis = 0))
 
-    ohe   = OneHotEncoder(np.concatenate((Y, Y_t), axis = 0))
-
-
-    nn    = Network()
-
+    nn = Network()
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(75,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(OutputLayer(10))
-
     nn.fit(X, ohe.encode(Y), batch = 250, epochs = 500)
 
-    P     = nn.predict(X_t)
+    P = ohe.decode(nn.predict(X_t))
 
-    P     = ohe.decode(P)
-
-
+    print()
+    print('Classification Experiment: Digits')
+    print()
     print()
     print()
     print()
@@ -66,7 +56,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

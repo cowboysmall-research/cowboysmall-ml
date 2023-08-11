@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -11,4 +10,3 @@ def confusion_matrix(y, y_hat):
         cm[index[x]][index[y]] += 1
 
     return cm.astype(int)
-

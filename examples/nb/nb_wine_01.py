@@ -16,29 +16,20 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
+    X = data.drop(['quality'], axis = 1).values
+    Y = data.quality.values
+
+    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
+
+    nb = NaiveBayes()
+    # nb = GaussianNaiveBayes()
+    nb.fit(X, Y)
+    Y_hat = nb.predict(X_t)
 
     print()
     print('Classification Experiment: Red Wine')
     print()
-
-
-    data  = imbalanced.oversample(pd.read_csv('./data/csv/wine_red.csv', sep = ';'), 'quality')
-    X     = data.drop(['quality'], axis = 1).values
-    Y     = data.quality.values
-
-
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
-
-
-
-    nb    = NaiveBayes()
-    # nb    = GaussianNaiveBayes()
-    nb.fit(X, Y)
-    Y_hat = nb.predict(X_t)
-
-
-
-
     print()
     print()
     print()
@@ -54,7 +45,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

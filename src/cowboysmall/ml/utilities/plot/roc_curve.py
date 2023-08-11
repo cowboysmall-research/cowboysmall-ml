@@ -1,15 +1,16 @@
-
 import os
 import datetime
 import itertools
 
-import numpy             as np
+import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn import metrics, preprocessing
+from matplotlib import style
 
 
 def roc_curve(name, title, y_true, y_score, classes):
+    style.use("ggplot")
 
     plt.clf()
     plt.title(title)
@@ -35,4 +36,3 @@ def roc_curve(name, title, y_true, y_score, classes):
 
     plt.savefig('{}/{}.png'.format(out_dir, name), format = 'png')
     plt.close()
-

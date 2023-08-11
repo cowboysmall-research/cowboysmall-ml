@@ -18,47 +18,34 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-
-    print()
-    print('Classification Experiment: White Wine')
-    print()
-
-
     data = oversample(pd.read_csv('./data/csv/wine_white.csv', sep = ';'), 'quality')
-    X    = data.drop(['quality'], axis = 1).values
-    Y    = data.quality.values
-
+    X = data.drop(['quality'], axis = 1).values
+    Y = data.quality.values
 
     sclr = preprocessing.StandardScaler().fit(X)
 
-    ohe  = OneHotEncoder(Y)
+    ohe = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
-    X    = sclr.transform(X)
-    X_t  = sclr.transform(X_t)
+    X   = sclr.transform(X)
+    X_t = sclr.transform(X_t)
 
-
-    nn   = Network()
-
+    nn = Network()
     nn.add(InputLayer(11,   learning = 0.25, regular = 0.005, momentum = 0.01))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(50,  learning = 0.25, regular = 0.005, momentum = 0.01))
     nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.005, momentum = 0.01))
     nn.add(OutputLayer(7))
-
     nn.fit(X, Y, batch = 200, epochs = 1000)
 
-    P    = nn.predict(X_t)
+    P   = ohe.decode(nn.predict(X_t))
+    Y_t = ohe.decode(Y_t)
 
-
-    P    = ohe.decode(P)
-    Y_t  = ohe.decode(Y_t)
-
-
-
-
+    print()
+    print('Classification Experiment: White Wine')
+    print()
     print()
     print()
     print()
@@ -74,7 +61,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

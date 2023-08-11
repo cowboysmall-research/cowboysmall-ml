@@ -16,30 +16,21 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
+    data = pd.read_csv('./data/csv/diabetes.csv', names = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8', 'Y'])
+    X = data.iloc[:, :8]
+    Y = data.iloc[:, 8]
+
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
+
+    dt = DecisionTree(min_size = 20, cost = entropy)
+    # dt = DecisionTree(min_size = 15, cost = gini)
+    dt.fit(X, Y)
+    P = dt.predict(X_t)
 
     print()
     print('Classification Experiment: Diabetes')
     print()
-
-
-    data  = pd.read_csv('./data/csv/diabetes.csv', names = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8', 'Y'])
-    X     = data.iloc[:, :8]
-    Y     = data.iloc[:, 8]
-
-
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
-
-
-    dt    = DecisionTree(min_size = 20, cost = entropy)
-    # dt    = DecisionTree(min_size = 15, cost = gini)
-    dt.fit(X, Y)
-    P     = dt.predict(X_t)
-
-
     print(dt)
-
-
-
     print()
     print()
     print()
@@ -55,7 +46,5 @@ def main(argv):
     print()
 
 
-
 if __name__ == "__main__":
     main(sys.argv[1:])
-

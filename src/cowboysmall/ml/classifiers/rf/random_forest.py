@@ -1,9 +1,6 @@
-
 import numpy as np
 
-
 from collections import Counter
-
 
 from cowboysmall.ml.classifiers.dt.tree import DecisionTree
 from cowboysmall.ml.classifiers.dt.cost import gini
