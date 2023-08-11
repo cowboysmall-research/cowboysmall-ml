@@ -9,13 +9,22 @@
 
 **Table of Contents**
 
-- [Installation](#installation)
+- [Development](#Development)
 - [License](#license)
 
-## Installation
+
+## Development
+
+The best way to play with these classifiers is to launch a hatch shell:
 
 ```console
-pip install cowboysmall-ml
+> hatch shell
+```
+
+once the shell is up and running you can run the examples:
+
+```console
+> python -m examples.glm.glm_banknote
 ```
 
 ## License
