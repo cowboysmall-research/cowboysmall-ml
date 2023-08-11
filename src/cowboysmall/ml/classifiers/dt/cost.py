@@ -33,4 +33,3 @@ def entropy(splits, classes):
         entropy += -sigma * (split.shape[0] / float(total))
 
     return entropy
-

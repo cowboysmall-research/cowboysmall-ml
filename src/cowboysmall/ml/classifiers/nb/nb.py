@@ -45,12 +45,10 @@ class AbstractNaiveBayes:
         return [self.calculate_posterior(X[row]) for row in range(X.shape[0])]
 
 
-
 class NaiveBayes(AbstractNaiveBayes):
 
     def calculate_priors(self, c):
         return {key:value / float(len(c)) for key, value in dict(Counter(c)).items()}
-
 
 
 class GaussianNaiveBayes(AbstractNaiveBayes):
@@ -58,4 +56,3 @@ class GaussianNaiveBayes(AbstractNaiveBayes):
     def calculate_priors(self, c):
         g = norm(np.mean(c), np.std(c))
         return {i:g.pdf(i) for i in np.unique(c)}
-

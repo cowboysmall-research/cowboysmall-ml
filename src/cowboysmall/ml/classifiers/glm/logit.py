@@ -74,4 +74,3 @@ class LogisticRegression:
 
     def predict(self, X):
         return self.hypothesis(self.add_intercept(X))[:, 0]
-

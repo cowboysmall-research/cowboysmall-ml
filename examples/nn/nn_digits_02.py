@@ -39,6 +39,7 @@ def main(argv):
     P = ohe.decode(nn.predict(X_t))
 
     print()
+    print()
     print('Classification Experiment: Digits')
     print()
     print()

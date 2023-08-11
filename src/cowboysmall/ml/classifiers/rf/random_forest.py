@@ -25,4 +25,3 @@ class RandomForest:
 
     def predict(self, X):
         return [Counter(row).most_common()[0][0] for row in np.column_stack([tree.predict(X) for tree in self.trees])]
-

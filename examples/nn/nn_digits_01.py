@@ -35,6 +35,7 @@ def main(argv):
     Y_t = np.array([y.argmax() for y in Y_t])
 
     print()
+    print()
     print('Classification Experiment: Digits')
     print()
     print()

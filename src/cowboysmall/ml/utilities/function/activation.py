@@ -10,7 +10,6 @@ class ReLU:
         return (y > 0).astype(y.dtype)
 
 
-
 class LeakyReLU:
 
     def f(self, x):

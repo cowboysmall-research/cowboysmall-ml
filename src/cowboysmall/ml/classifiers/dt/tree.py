@@ -64,4 +64,3 @@ class DecisionTree:
 
     def predict(self, X):
         return [self.root.predict(row) for _, row in X.iterrows()]
-            

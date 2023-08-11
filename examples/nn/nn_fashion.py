@@ -37,6 +37,7 @@ def main(argv):
     P = ohe.decode(nn.predict(X_t))
 
     print()
+    print()
     print('Classification Experiment: Fashion')
     print()
     print()

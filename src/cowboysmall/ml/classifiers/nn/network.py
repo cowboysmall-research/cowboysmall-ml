@@ -46,10 +46,10 @@ class Network:
         if self.verbose:
             print('          network:')
             print()
-            print('      input layer: {:>3} nodes'.format(self.layers[0].get_nodes()))
+            print('      input layer: {:>5} nodes'.format(self.layers[0].get_nodes()))
             for layer in self.layers[1:-1]:
-                print('     hidden layer: {:>3} nodes'.format(layer.get_nodes()))
-            print('     output layer: {:>3} nodes'.format(self.layers[-1].get_nodes()))
+                print('     hidden layer: {:>5} nodes'.format(layer.get_nodes()))
+            print('     output layer: {:>5} nodes'.format(self.layers[-1].get_nodes()))
             print()
             print('         training:')
             print()
@@ -77,4 +77,3 @@ class Network:
         self.forward(X)
 
         return self.layers[-1].output()
-

@@ -44,12 +44,10 @@ class ConnectedLayer:
         self.delta    = delta_w
 
 
-
 class InputLayer(ConnectedLayer):
 
     def input(self, inputs):
         self.activation[:, :] = inputs
-
 
 
 class HiddenLayer(ConnectedLayer):
@@ -59,7 +57,6 @@ class HiddenLayer(ConnectedLayer):
 
     def calculate_delta(self, delta):
         return (delta @ self.weights.T) * self.function.f_prime(self.activation)
-
 
 
 class OutputLayer(ConnectedLayer):
@@ -72,4 +69,3 @@ class OutputLayer(ConnectedLayer):
 
     def output(self):
         return self.activation
-

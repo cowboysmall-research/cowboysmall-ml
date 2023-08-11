@@ -10,7 +10,6 @@ class Logistic:
         return y * (1 - y)
 
 
-
 class Tanh:
 
     def f(self, x):

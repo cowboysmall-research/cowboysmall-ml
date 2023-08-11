@@ -27,7 +27,6 @@ class Node:
         )
 
 
-
 class LeafNode:
 
     def __init__(self, counts):
@@ -40,4 +39,3 @@ class LeafNode:
 
     def to_string(self, depth = 1):
         return '{}{}'.format(depth * ' ', self.counts)
-
