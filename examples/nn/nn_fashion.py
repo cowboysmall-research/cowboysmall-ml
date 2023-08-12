@@ -29,8 +29,8 @@ def main(argv):
 
     nn = Network()
     nn.add(InputLayer(784,  learning = 0.1, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(512, learning = 0.1, regular = 0.01, momentum = 0, function = ReLU()))
-    nn.add(HiddenLayer(512, learning = 0.1, regular = 0.01, momentum = 0, function = ReLU()))
+    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0))
+    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0))
     nn.add(OutputLayer(10))
     nn.fit(X, ohe.encode(Y), batch = 1000, epochs = 40)
 
