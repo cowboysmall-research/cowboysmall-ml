@@ -19,8 +19,8 @@ class ConnectedLayer:
 
     def init(self, batch):
         self.batch      = batch
-        self.activation = np.zeros((batch, self.nodes))
-        self.bias       = np.zeros((batch, self.next.get_nodes()))
+        self.activation = np.ones((batch, self.nodes))
+        self.bias       = np.ones((batch, self.next.get_nodes()))
 
     def update(self):
         self.activation = self.function.f(self.prev.z())

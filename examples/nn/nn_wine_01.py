@@ -32,13 +32,11 @@ def main(argv):
     X_t = sclr.transform(X_t)
 
     nn = Network()
-    nn.add(InputLayer(11,   learning = 0.25, regular = 0.005, momentum = 0.01))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.005, momentum = 0, function = LeakyReLU()))
-    nn.add(HiddenLayer(50,  learning = 0.25, regular = 0.005, momentum = 0.01))
-    nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.005, momentum = 0.01))
+    nn.add(InputLayer(11,   learning = 0.1, regular = 0.005, momentum = 0.01))
+    nn.add(HiddenLayer(100, learning = 0.1, regular = 0.005, momentum = 0))
+    nn.add(HiddenLayer(100, learning = 0.1, regular = 0.005, momentum = 0))
     nn.add(OutputLayer(6))
-    nn.fit(X, Y, batch = 500, epochs = 1000)
+    nn.fit(X, Y, batch = 500, epochs = 200)
 
     P   = ohe.decode(nn.predict(X_t))
     Y_t = ohe.decode(Y_t)
