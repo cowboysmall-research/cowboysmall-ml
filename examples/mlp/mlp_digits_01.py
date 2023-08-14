@@ -7,7 +7,6 @@ from sklearn import preprocessing, model_selection, metrics
 
 from cowboysmall.ml.classifiers.mlp.network import Network
 from cowboysmall.ml.classifiers.mlp.layer   import InputLayer, HiddenLayer, OutputLayer
-from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
