@@ -32,9 +32,9 @@ class Network:
     def backward(self, labels):
         delta = labels
 
-        for i in reversed(range(len(self.layers) - 1)):
-            delta = self.layers[i + 1].calculate_delta(delta)
-            self.layers[i].update_parameters(delta)
+        for i in reversed(range(1, len(self.layers))):
+            delta = self.layers[i].calculate_delta(delta)
+            self.layers[i - 1].update_parameters(delta)
 
 
     def cost(self, y, m):

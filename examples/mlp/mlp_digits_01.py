@@ -7,6 +7,7 @@ from sklearn import preprocessing, model_selection, metrics
 
 from cowboysmall.ml.classifiers.mlp.network import Network
 from cowboysmall.ml.classifiers.mlp.layer   import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
@@ -23,8 +24,8 @@ def main(argv):
 
     nn = Network()
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(OutputLayer(10))
     nn.fit(X, Y, batch = 100, epochs = 1000)
 
