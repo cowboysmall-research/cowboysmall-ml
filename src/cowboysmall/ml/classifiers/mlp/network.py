@@ -43,15 +43,7 @@ class Network:
 
     def fit(self, X, y, batch = 100, epochs = 500):
         if self.verbose:
-            print('          network:')
-            print()
-            print('      input layer: {:>5} nodes'.format(self.layers[0].get_nodes()))
-            for layer in self.layers[1:-1]:
-                print('     hidden layer: {:>5} nodes'.format(layer.get_nodes()))
-            print('     output layer: {:>5} nodes'.format(self.layers[-1].get_nodes()))
-            print()
-            print('         training:')
-            print()
+            self.print_network_details()
 
         m = X.shape[0]
 
@@ -69,10 +61,26 @@ class Network:
             d = time.time() - s
 
             if self.verbose and i % 10 == 0:
-                print(' epoch {:>6} / {} [batch: {:>3}, error: {:.5f}, duration: {:.5f}]'.format(i, epochs, batch, e, d), end = '\r')
+                self.print_epoch_details(i, epochs, batch, e, d)
 
 
     def predict(self, X):
         self.forward(X)
 
         return self.layers[-1].output()
+
+
+    def print_network_details(self):
+        print('          network:')
+        print()
+        print('      input layer: {:>5} nodes'.format(self.layers[0].get_nodes()))
+        for layer in self.layers[1:-1]:
+            print('     hidden layer: {:>5} nodes'.format(layer.get_nodes()))
+        print('     output layer: {:>5} nodes'.format(self.layers[-1].get_nodes()))
+        print()
+        print('         training:')
+        print()
+
+
+    def print_epoch_details(self, epoch, epochs, batch, error, duration):
+        print(' epoch {:>6} / {} [batch: {:>3}, error: {:.5f}, duration: {:.5f}]'.format(epoch, epochs, batch, error, duration), end = '\r')

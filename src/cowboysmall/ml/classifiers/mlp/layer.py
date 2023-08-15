@@ -38,9 +38,17 @@ class ConnectedLayer:
         return (self.activation @ self.weights) + self.bias
 
     def update_parameters(self, delta):
+        # weight gradient calculation
         delta_w       = self.activation.T @ delta
-        self.weights -= self.learning * ((delta_w / self.batch) + (self.regular * self.weights)) + (self.momentum * self.delta)
-        self.bias    -= self.learning * (delta / self.batch)
+        # update weights based on learning rate and parameter regularisation
+        self.weights -= self.learning * self.regular * self.weights
+        # update weights based on learning rate and weight gradient
+        self.weights -= self.learning * delta_w / self.batch
+        # update weights based on momentum calculation using previous weight gradient
+        self.weights -= self.momentum * self.delta
+        # update bias based on learning rate and gradient
+        self.bias    -= self.learning * delta / self.batch
+        # update weight gradient
         self.delta    = delta_w
 
 
