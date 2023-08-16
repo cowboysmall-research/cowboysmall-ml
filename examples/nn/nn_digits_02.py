@@ -31,8 +31,6 @@ def main(argv):
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
-    nn.add(HiddenLayer(75,  learning = 0.25, regular = 0.001, momentum = 0.0125))
-    nn.add(HiddenLayer(25,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(OutputLayer(10))
     nn.fit(X, ohe.encode(Y), batch = 250, epochs = 500)
 

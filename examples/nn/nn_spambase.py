@@ -29,8 +29,6 @@ def main(argv):
     nn.add(InputLayer(57,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
-    nn.add(HiddenLayer(50,  learning = 0.25, regular = 0.001, momentum = 0.0125))
-    nn.add(HiddenLayer(10,  learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(OutputLayer(2))
     nn.fit(X, Y, batch = 250, epochs = 1000)
 

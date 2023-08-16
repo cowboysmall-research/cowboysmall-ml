@@ -1,7 +1,7 @@
 import numpy as np
 
-from cowboysmall.ml.utilities.function.sigmoid import Tanh, Logistic
 from cowboysmall.ml.utilities.function.activation import ReLU
+from cowboysmall.ml.utilities.function.sigmoid    import Tanh, Logistic
 
 
 class ConnectedLayer:
@@ -19,8 +19,8 @@ class ConnectedLayer:
 
     def init(self, batch):
         self.batch      = batch
-        self.activation = np.ones((batch, self.nodes))
-        self.bias       = np.ones((batch, self.next.get_nodes()))
+        self.activation = np.zeros((batch, self.nodes))
+        self.bias       = np.zeros((batch, self.next.get_nodes()))
 
     def update(self):
         self.activation = self.function.f(self.prev.z())
@@ -60,9 +60,6 @@ class InputLayer(ConnectedLayer):
 
 class HiddenLayer(ConnectedLayer):
 
-    def __init__(self, nodes, function = Tanh(), **kwargs):
-        ConnectedLayer.__init__(self, nodes, function, **kwargs)
-
     def calculate_delta(self, delta):
         return (delta @ self.weights.T) * self.function.f_prime(self.activation)
 
@@ -71,6 +68,15 @@ class OutputLayer(ConnectedLayer):
 
     def __init__(self, nodes, function = Logistic(), **kwargs):
         ConnectedLayer.__init__(self, nodes, function, **kwargs)
+
+    def create(self):
+        pass
+
+    def init(self, batch):
+        pass
+
+    def set_next(self, next):
+        pass
 
     def calculate_delta(self, labels):
         return (self.activation - labels) * self.function.f_prime(self.activation)

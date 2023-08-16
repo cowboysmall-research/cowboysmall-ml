@@ -7,6 +7,7 @@ from sklearn import preprocessing, metrics
 
 from cowboysmall.ml.classifiers.nn.network  import Network
 from cowboysmall.ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
@@ -24,14 +25,14 @@ def main(argv):
     X   = preprocessing.scale(X)
     X_t = preprocessing.scale(X_t)
 
-    ohe = OneHotEncoder(Y)
+    ohe = OneHotEncoder(np.concatenate((Y, Y_t)))
 
     nn = Network()
     nn.add(InputLayer(784,  learning = 0.1, regular = 0.01, momentum = 0.01))
-    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0))
-    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0))
+    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0, function = LeakyReLU()))
+    nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0, function = LeakyReLU()))
     nn.add(OutputLayer(10))
-    nn.fit(X, ohe.encode(Y), batch = 1000, epochs = 40)
+    nn.fit(X, ohe.encode(Y), batch = 1200, epochs = 40)
 
     P = ohe.decode(nn.predict(X_t))
 

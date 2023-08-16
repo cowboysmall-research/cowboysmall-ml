@@ -17,27 +17,27 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
-    X = preprocessing.scale(data[:, :57])
-    Y = data[:, 57].astype(int)
+    data = np.loadtxt('./data/csv/diabetes.csv', delimiter = ',')
+    X = preprocessing.scale(data[:, :8])
+    Y = data[:, 8].astype(int)
 
     ohe = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
 
     nn = Network()
-    nn.add(InputLayer(57,   learning = 0.25, regular = 0.001, momentum = 0.0125))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
-    nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
+    nn.add(InputLayer(8,   learning = 0.1, regular = 0.15, momentum = 0.01))
+    nn.add(HiddenLayer(16, learning = 0.1, regular = 0.15, momentum = 0.01, function = LeakyReLU()))
+    nn.add(HiddenLayer(16, learning = 0.1, regular = 0.15, momentum = 0.01, function = LeakyReLU()))
     nn.add(OutputLayer(2))
-    nn.fit(X, Y, batch = 250, epochs = 1000)
+    nn.fit(X, Y, batch = 200, epochs = 1000)
 
     P   = ohe.decode(nn.predict(X_t))
     Y_t = ohe.decode(Y_t)
 
     print()
     print()
-    print('Classification Experiment: Spambase')
+    print('Classification Experiment: Diabetes')
     print()
     print()
     print()

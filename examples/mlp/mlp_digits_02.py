@@ -5,8 +5,8 @@ import numpy as np
 
 from sklearn import preprocessing, metrics
 
-from cowboysmall.ml.classifiers.nn.network  import Network
-from cowboysmall.ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.classifiers.mlp.network import Network
+from cowboysmall.ml.classifiers.mlp.layer   import InputLayer, HiddenLayer, OutputLayer
 from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder
 from cowboysmall.ml.utilities.metrics       import confusion_matrix

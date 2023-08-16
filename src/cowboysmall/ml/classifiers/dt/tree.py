@@ -13,10 +13,8 @@ class DecisionTree:
         self.cost      = cost
         self.f_count   = f_count
 
-
     def __str__(self):
         return self.root.to_string()
-
 
     def build_tree(self, X, y, features, depth = 1):
         best_cost     = 999999
@@ -47,11 +45,10 @@ class DecisionTree:
             return LeafNode(y)
         else:
             return Node(
-                best_criteria, 
-                self.build_tree(best_split[0], best_labels[0], features, depth + 1), 
+                best_criteria,
+                self.build_tree(best_split[0], best_labels[0], features, depth + 1),
                 self.build_tree(best_split[1], best_labels[1], features, depth + 1)
             )
-
 
     def fit(self, X, y):
         if self.f_count:
@@ -60,7 +57,6 @@ class DecisionTree:
             features = list(X)
 
         self.root = self.build_tree(X, y, features)
-
 
     def predict(self, X):
         return [self.root.predict(row) for _, row in X.iterrows()]
