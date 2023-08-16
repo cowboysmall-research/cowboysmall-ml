@@ -6,8 +6,8 @@ import pandas as pd
 
 from sklearn import preprocessing, model_selection, metrics, feature_selection
 
-from cowboysmall.ml.classifiers.mlp.network  import Network
-from cowboysmall.ml.classifiers.mlp.layer    import InputLayer, HiddenLayer, OutputLayer
+from cowboysmall.ml.classifiers.mlp.network import Network
+from cowboysmall.ml.classifiers.mlp.layer   import InputLayer, HiddenLayer, OutputLayer
 from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder, oversample
 from cowboysmall.ml.utilities.metrics       import confusion_matrix

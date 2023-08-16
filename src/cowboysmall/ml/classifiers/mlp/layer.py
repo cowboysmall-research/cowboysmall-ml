@@ -6,21 +6,25 @@ from cowboysmall.ml.utilities.function.sigmoid    import Tanh, Logistic
 
 class ConnectedLayer:
 
-    def __init__(self, nodes, function = ReLU(), learning = 0.1, regular = 0, momentum = 0.1):
+    def __init__(self, nodes, function = ReLU(), learning = 0.1, regular = 0, momentum = 0.1, zero = True):
         self.nodes    = nodes
         self.function = function
         self.learning = learning
         self.regular  = regular
         self.momentum = momentum
+        self.zero     = zero
 
     def create(self):
         self.weights = np.random.uniform(-1, 1, size = (self.nodes, self.next.get_nodes()))
         self.delta   = np.zeros((self.nodes, self.next.get_nodes()))
 
     def init(self, batch):
-        self.batch      = batch
+        self.batch = batch
         self.activation = np.zeros((batch, self.nodes))
-        self.bias       = np.zeros((batch, self.next.get_nodes()))
+        if self.zero:
+            self.bias = np.zeros((batch, self.next.get_nodes()))
+        else:
+            self.bias = np.ones((batch, self.next.get_nodes()))
 
     def update(self):
         self.activation = self.function.f(self.prev.z())
@@ -53,6 +57,12 @@ class ConnectedLayer:
 
 
 class InputLayer(ConnectedLayer):
+
+    def update(self):
+        pass
+
+    def set_prev(self, prev):
+        pass
 
     def input(self, inputs):
         self.activation[:, :] = inputs
