@@ -12,7 +12,7 @@ from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
 def main(argv):
-    np.random.seed(1339)
+    np.random.seed(1337)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
@@ -20,7 +20,7 @@ def main(argv):
     X = data.drop(['quality'], axis = 1).values
     Y = data.quality.values
 
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
+    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.67)
 
     nb = GaussianNaiveBayes()
     nb.fit(X, Y)

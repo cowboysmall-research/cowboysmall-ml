@@ -1,6 +1,7 @@
 
 
 def print_layer_details(layers):
+    print()
     print('          network:')
     print()
     print('      input layer: {:>5} nodes'.format(layers[0].get_nodes()))

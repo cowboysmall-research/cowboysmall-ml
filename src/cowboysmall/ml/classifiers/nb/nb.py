@@ -7,27 +7,27 @@ from collections import Counter
 
 class GaussianNaiveBayes:
 
-    def calculate_priors(self, c):
+    def priors(self, c):
         return {key: value / float(len(c)) for key, value in dict(Counter(c)).items()}
 
-    def calculate_stats(self, X, y):
-        stats = {label:dict() for label in np.unique(y)}
+    def distributions(self, X, y):
+        distributions = {label: dict() for label in np.unique(y)}
 
-        for label in stats:
+        for label in distributions:
             for feature in range(X.shape[1]):
                 c = X[y == label, feature]
-                stats[label][feature] = (np.mean(c), np.std(c))
+                distributions[label][feature] = norm(np.mean(c), np.std(c))
 
-        return stats
+        return distributions
 
-    def calculate_posterior(self, X):
+    def posteriors(self, row):
         posteriors = {}
 
         for label in self.priors:
             posterior = self.priors[label]
 
-            for feature in range(X.shape[0]):
-                posterior *= norm(*self.stats[label][feature]).pdf(X[feature])
+            for feature in range(row.shape[0]):
+                posterior *= self.dists[label][feature].pdf(row[feature])
 
             posteriors[label] = posterior
 
@@ -37,8 +37,8 @@ class GaussianNaiveBayes:
         return max(posteriors, key = posteriors.get)
 
     def fit(self, X, y):
-        self.priors = self.calculate_priors(y)
-        self.stats  = self.calculate_stats(X, y)
+        self.priors = self.priors(y)
+        self.dists  = self.distributions(X, y)
 
     def predict(self, X):
-        return [self.argmax(self.calculate_posterior(row)) for row in X]
+        return [self.argmax(self.posteriors(row)) for row in X]

@@ -17,6 +17,7 @@ def gini(splits, classes):
 
     return gini
 
+
 def entropy(splits, classes):
     total   = sum(split.shape[0] for split in splits)
     entropy = 0

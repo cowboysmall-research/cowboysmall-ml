@@ -10,7 +10,7 @@ class Node:
 
     def predict(self, row):
         if isinstance(row[self.criteria[0]], int) or isinstance(row[self.criteria[0]], float):
-            return self.left.predict(row) if row[self.criteria[0]] <  self.criteria[1] else self.right.predict(row)
+            return self.left.predict(row) if row[self.criteria[0]] < self.criteria[1] else self.right.predict(row)
         else:
             return self.left.predict(row) if row[self.criteria[0]] == self.criteria[1] else self.right.predict(row)
 

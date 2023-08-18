@@ -26,7 +26,7 @@ class DecisionTree:
 
             for value in np.unique(X.loc[:, feature]):
                 if isinstance(value, int) or isinstance(value, float):
-                    left, right = X.loc[:, feature] <  value, X.loc[:, feature] >= value
+                    left, right = X.loc[:, feature] < value, X.loc[:, feature] >= value
                 else:
                     left, right = X.loc[:, feature] == value, X.loc[:, feature] != value
 

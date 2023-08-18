@@ -10,8 +10,8 @@ class LogisticRegression:
         self.verbose = verbose
         self.logistic = Logistic()
 
-    def add_intercept(self, X): 
-        x        = np.ones((X.shape[0], X.shape[1] + 1))
+    def add_intercept(self, X):
+        x = np.ones((X.shape[0], X.shape[1] + 1))
         x[:, 1:] = X
         return x
 
@@ -19,7 +19,7 @@ class LogisticRegression:
         return self.logistic.f(X @ self.theta)
 
     def cost(self, X, y):
-        h  = self.hypothesis(X)
+        h = self.hypothesis(X)
         return -np.sum((y * np.log(h)) + ((1 - y) * np.log(1 - h))) / X.shape[0]
 
     def gradient(self, X, y):
