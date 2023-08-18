@@ -14,7 +14,7 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    data = np.loadtxt('./data/csv/iris.csv', delimiter = ',')
+    data = np.loadtxt('./data/csv/iris_01.csv', delimiter = ',')
     X = data[:, :4]
     Y = data[:, 4].astype(int)
 

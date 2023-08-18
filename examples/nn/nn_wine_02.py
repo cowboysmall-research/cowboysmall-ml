@@ -23,20 +23,18 @@ def main(argv):
     Y = data.quality.values
 
     sclr = preprocessing.StandardScaler().fit(X)
+    X    = sclr.transform(X)
 
     ohe = OneHotEncoder(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
-
-    X   = sclr.transform(X)
-    X_t = sclr.transform(X_t)
 
     nn = Network()
     nn.add(InputLayer(11,   learning = 0.1, regular = 0.005, momentum = 0.01))
     nn.add(HiddenLayer(100, learning = 0.1, regular = 0.005, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.1, regular = 0.005, momentum = 0, function = LeakyReLU()))
     nn.add(OutputLayer(7))
-    nn.fit(X, Y, batch = 500, epochs = 200)
+    nn.fit(X, Y, batch = 600, epochs = 200)
 
     P   = ohe.decode(nn.predict(X_t))
     Y_t = ohe.decode(Y_t)
