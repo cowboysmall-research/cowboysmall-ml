@@ -4,11 +4,10 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from sklearn import preprocessing, model_selection, metrics, feature_selection
+from sklearn import preprocessing, model_selection, metrics
 
 from cowboysmall.ml.classifiers.nn.network  import Network
 from cowboysmall.ml.classifiers.nn.layer    import InputLayer, HiddenLayer, OutputLayer
-from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder, oversample
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
 

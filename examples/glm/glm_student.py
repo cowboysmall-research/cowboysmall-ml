@@ -3,8 +3,6 @@ import warnings
 
 import numpy as np
 
-from sklearn import preprocessing, model_selection, metrics
-
 from cowboysmall.ml.classifiers.glm.logit import LogisticRegression
 from cowboysmall.ml.utilities.plot        import scatterplot
 

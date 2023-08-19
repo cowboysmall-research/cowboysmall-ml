@@ -7,7 +7,7 @@ import pandas as pd
 from sklearn import model_selection, metrics
 
 from cowboysmall.ml.classifiers.dt.tree     import DecisionTree
-from cowboysmall.ml.classifiers.dt.cost     import gini, entropy
+from cowboysmall.ml.classifiers.dt.cost     import entropy
 from cowboysmall.ml.utilities.preprocessing import imbalanced
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
 

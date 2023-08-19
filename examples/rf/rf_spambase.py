@@ -4,10 +4,10 @@ import warnings
 import numpy  as np
 import pandas as pd
 
-from sklearn import preprocessing, model_selection, metrics
+from sklearn import model_selection, metrics
 
 from cowboysmall.ml.classifiers.rf.random_forest import RandomForest
-from cowboysmall.ml.classifiers.dt.cost          import gini, entropy
+from cowboysmall.ml.classifiers.dt.cost          import gini
 from cowboysmall.ml.utilities.metrics            import confusion_matrix
 
 
