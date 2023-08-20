@@ -15,14 +15,13 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    cols = ['sl', 'sw', 'pl', 'pw', 'c']
-    data = pd.read_csv('./data/csv/iris_01.csv', sep = ',', names = cols)
+    data = pd.read_csv('./data/csv/iris_01.csv', header = None)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(data, data['c'], train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(data, data.iloc[:, -1], train_size = 0.75)
 
     nb = NaiveBayes()
-    nb.fit(X, Y, cols)
-    Y_hat = nb.predict(X_t.drop(['c'], axis = 1).values) + 1
+    nb.fit(X, Y)
+    Y_hat = nb.predict(X_t.iloc[:, :-1].values) + 1
 
     print()
     print('Classification Experiment: Iris')
