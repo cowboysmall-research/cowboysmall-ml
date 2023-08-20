@@ -5,16 +5,13 @@ from collections import Counter
 
 class NaiveBayes:
 
-    def __init__(self, likelihood):
-        self.likelihood = likelihood
-
     def fit(self, X, y):
         self.priors = {key: value / float(len(y)) for key, value in dict(Counter(y)).items()}
-        self.likelihoods = {label: dict() for label in np.unique(y)}
+        self.stats  = {label: dict() for label in np.unique(y)}
 
-        for label in self.likelihoods:
+        for label in self.stats:
             for feature in range(X.shape[1]):
-                self.likelihoods[label][feature] = self.likelihood(X[y == label, feature])
+                self.stats[label][feature] = (np.mean(X[y == label, feature]), np.var(X[y == label, feature]))
 
     def predict(self, X):
         predictions = []
@@ -24,8 +21,11 @@ class NaiveBayes:
             for label in self.priors:
                 posterior = self.priors[label]
                 for feature in range(row.shape[0]):
-                    posterior *= self.likelihoods[label][feature].calculate(row[feature])
+                    posterior *= self.gaussian(row[feature], self.stats[label][feature])
                 posteriors[label] = posterior
             predictions.append(max(posteriors, key = posteriors.get))
 
-        return predictions
+        return np.array(predictions)
+
+    def gaussian(self, x, stats):
+        return np.exp(-np.square(x - stats[0]) / (2 * stats[1])) / np.sqrt(2 * (np.pi) * stats[1])

@@ -6,10 +6,9 @@ import pandas as pd
 
 from sklearn import model_selection, metrics
 
-from cowboysmall.ml.classifiers.nb.nb         import NaiveBayes
-from cowboysmall.ml.classifiers.nb.likelihood import GaussianLikelihood
-from cowboysmall.ml.utilities.preprocessing   import imbalanced
-from cowboysmall.ml.utilities.metrics         import confusion_matrix
+from cowboysmall.ml.classifiers.nb.nb       import NaiveBayes
+from cowboysmall.ml.utilities.preprocessing import imbalanced
+from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 
 def main(argv):
@@ -23,7 +22,7 @@ def main(argv):
 
     X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.67)
 
-    nb = NaiveBayes(GaussianLikelihood)
+    nb = NaiveBayes()
     nb.fit(X, Y)
     Y_hat = nb.predict(X_t)
 

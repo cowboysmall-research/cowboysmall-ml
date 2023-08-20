@@ -3,20 +3,18 @@ import warnings
 
 import numpy as np
 
-from cowboysmall.ml.classifiers.nb.nb         import NaiveBayes
-from cowboysmall.ml.classifiers.nb.likelihood import GaussianLikelihood
-from cowboysmall.ml.utilities.validation      import KFold
+from cowboysmall.ml.classifiers.nb.nb    import NaiveBayes
+from cowboysmall.ml.utilities.validation import KFold
 
 
 def main(argv):
-    # np.random.seed(1066)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     data = np.loadtxt('./data/csv/seeds.csv', delimiter = ',')
 
     validation = KFold()
-    scores = validation.validate(NaiveBayes(GaussianLikelihood), data)
+    scores = validation.validate(NaiveBayes(), data)
 
     print()
     print('Classification Experiment: Seeds - K-Fold Cross Validation')

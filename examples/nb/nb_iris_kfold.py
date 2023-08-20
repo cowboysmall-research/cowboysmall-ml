@@ -3,9 +3,8 @@ import warnings
 
 import numpy as np
 
-from cowboysmall.ml.classifiers.nb.nb         import NaiveBayes
-from cowboysmall.ml.classifiers.nb.likelihood import GaussianLikelihood
-from cowboysmall.ml.utilities.validation      import KFold
+from cowboysmall.ml.classifiers.nb.nb    import NaiveBayes
+from cowboysmall.ml.utilities.validation import KFold
 
 
 def main(argv):
@@ -15,7 +14,7 @@ def main(argv):
     data = np.loadtxt('./data/csv/iris_01.csv', delimiter = ',')
 
     validation = KFold()
-    scores = validation.validate(NaiveBayes(GaussianLikelihood), data)
+    scores = validation.validate(NaiveBayes(), data)
 
     print()
     print('Classification Experiment: Iris - K-Fold Cross Validation')
