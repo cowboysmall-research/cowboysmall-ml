@@ -11,11 +11,11 @@ from cowboysmall.ml.utilities.metrics  import confusion_matrix
 
 
 def main(argv):
-    np.random.seed(1024)
+    np.random.seed(1066)
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    data = pd.read_csv('./data/csv/iris_01.csv', header = None)
+    data = pd.read_csv('./data/csv/seeds.csv', header = None)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(data, data.iloc[:, -1], train_size = 0.75)
 
@@ -24,7 +24,7 @@ def main(argv):
     Y_hat = nb.predict(X_t.iloc[:, :-1]) + 1
 
     print()
-    print('Classification Experiment: Iris')
+    print('Classification Experiment: Seeds')
     print()
     print()
     print()

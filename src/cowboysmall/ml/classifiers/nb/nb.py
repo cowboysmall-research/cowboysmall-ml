@@ -6,12 +6,12 @@ from collections import Counter
 class NaiveBayes:
 
     def fit(self, X, y):
-        self.priors = {key: value / float(len(y)) for key, value in dict(Counter(y)).items()}
+        self.priors = {key: float(value) / len(y) for key, value in dict(Counter(y)).items()}
         self.stats  = {label: dict() for label in np.unique(y)}
 
         for label in self.stats:
             for feature in range(X.shape[1]):
-                self.stats[label][feature] = (np.mean(X[y == label, feature]), np.var(X[y == label, feature]))
+                self.stats[label][feature] = (X[y == label, feature].mean(), X[y == label, feature].var(ddof = 1))
 
     def predict(self, X):
         predictions = np.empty(X.shape[0])

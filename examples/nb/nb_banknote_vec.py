@@ -21,7 +21,7 @@ def main(argv):
 
     nb = NaiveBayes()
     nb.fit(X, Y)
-    Y_hat = nb.predict(X_t.iloc[:, :-1].values)
+    Y_hat = nb.predict(X_t.iloc[:, :-1])
 
     print()
     print('Classification Experiment: Banknote')
