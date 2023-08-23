@@ -2,7 +2,6 @@ import sys
 import warnings
 
 import numpy as np
-import pandas as pd
 
 from sklearn import model_selection, metrics
 
@@ -15,13 +14,15 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    data = pd.read_csv('./data/csv/spambase.csv', header = None)
+    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
+    X = data[:, :57]
+    Y = data[:, 57].astype(int)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(data, data.iloc[:, -1], train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
 
     nb = NaiveBayes()
     nb.fit(X, Y)
-    Y_hat = nb.predict(X_t.iloc[:, :-1])
+    Y_hat = nb.predict(X_t)
 
     print()
     print('Classification Experiment: Spambase')

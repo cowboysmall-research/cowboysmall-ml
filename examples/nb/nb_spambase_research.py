@@ -2,7 +2,6 @@ import sys
 import warnings
 
 import numpy as np
-import pandas as pd
 
 from sklearn import model_selection, metrics
 
@@ -17,12 +16,12 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    pd.set_option("display.precision", 8)
 
+    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
+    X = data[:, :57]
+    Y = data[:, 57].astype(int)
 
-    data = pd.read_csv('./data/csv/spambase.csv', header = None)
-
-    X, X_t, Y, Y_t = model_selection.train_test_split(data, data.iloc[:, -1], train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
 
 
     print()
@@ -32,10 +31,9 @@ def main(argv):
     print()
 
 
-
     nb0 = nb_01.NaiveBayes()
-    nb0.fit(X.iloc[:, :-1].values, Y.values)
-    Y_hat1 = nb0.predict(X_t.iloc[:, :-1].values)
+    nb0.fit(X, Y)
+    Y_hat1 = nb0.predict(X_t)
 
     print()
     print('       Spambase - Regular:')
@@ -54,8 +52,7 @@ def main(argv):
 
     nb1 = nb_02.NaiveBayes()
     nb1.fit(X, Y)
-    Y_hat2 = nb1.predict(X_t.iloc[:, :-1])
-
+    Y_hat2 = nb1.predict(X_t)
 
     print()
     print('    Spambase - Vectorised:')
