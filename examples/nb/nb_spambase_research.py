@@ -81,8 +81,8 @@ def main(argv):
     if differences:
         for i in differences:
             print('                    index: ', i)
-            print('                  Regular: ', nb0.predict(X_t.iloc[i, :-1].values.reshape(1, X_t.shape[1] - 1))[0])
-            print('               Vectorised: ', nb1.predict(pd.DataFrame(X_t.iloc[i, :-1].values.reshape(1, X_t.shape[1] - 1)))[0])
+            # print('                  Regular: ', nb0.predict(X_t[i, :-1].values.reshape(1, X_t.shape[1] - 1))[0])
+            # print('               Vectorised: ', nb1.predict(pd.DataFrame(X_t.iloc[i, :-1].values.reshape(1, X_t.shape[1] - 1)))[0])
             print()
     else:
         print('           No Differences: ')

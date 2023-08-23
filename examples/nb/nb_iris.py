@@ -3,7 +3,7 @@ import warnings
 
 import numpy as np
 
-from sklearn import model_selection, metrics
+from sklearn import model_selection, metrics, preprocessing
 
 from cowboysmall.ml.classifiers.nb.nb import NaiveBayes
 from cowboysmall.ml.utilities.metrics import confusion_matrix
@@ -18,11 +18,14 @@ def main(argv):
     X = data[:, :4]
     Y = data[:, 4].astype(int)
 
+    le = preprocessing.LabelEncoder()
+    le.fit(Y)
+
     X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)
 
     nb = NaiveBayes()
-    nb.fit(X, Y)
-    Y_hat = nb.predict(X_t)
+    nb.fit(X, le.transform(Y))
+    Y_hat = le.inverse_transform(nb.predict(X_t))
 
     print()
     print('Classification Experiment: Iris')
