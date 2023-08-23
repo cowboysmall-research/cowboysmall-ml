@@ -10,10 +10,8 @@ class NaiveBayes:
         self.mean   = np.array([[X[y == i, j].mean() for j in range(X.shape[1])] for i in labels])
         self.var    = np.array([[X[y == i, j].var()  for j in range(X.shape[1])] for i in labels])
 
-
     def predict(self, X):
         return np.array([np.argmax(self.posterior(X[row])) for row in range(X.shape[0])])
-
 
     def posterior(self, X):
         posteriors = []
@@ -27,7 +25,6 @@ class NaiveBayes:
             posteriors.append(posterior)
 
         return posteriors
-
 
     def gaussian(self, X, mean, var):
         return np.exp(-np.square(X - mean) / (2 * var)) / np.sqrt(2 * np.pi * var)

@@ -3,10 +3,11 @@ import warnings
 
 import numpy as np
 
-from sklearn import model_selection, metrics, preprocessing
+from sklearn import model_selection, metrics
 
-from cowboysmall.ml.classifiers.nb.nb import NaiveBayes
-from cowboysmall.ml.utilities.metrics import confusion_matrix
+from cowboysmall.ml.classifiers.nb.nb       import NaiveBayes
+from cowboysmall.ml.utilities.metrics       import confusion_matrix
+from cowboysmall.ml.utilities.preprocessing import LabelEncoder
 
 
 def main(argv):
@@ -18,7 +19,7 @@ def main(argv):
     X = data[:, :7]
     Y = data[:, 7].astype(int)
 
-    le = preprocessing.LabelEncoder()
+    le = LabelEncoder()
     le.fit(Y)
 
     X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.75)

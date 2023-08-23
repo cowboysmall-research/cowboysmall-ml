@@ -4,7 +4,7 @@ import warnings
 import numpy as np
 
 from cowboysmall.ml.classifiers.nb.nb    import NaiveBayes
-from cowboysmall.ml.utilities.validation import KFold
+from cowboysmall.ml.utilities.validation import kfold
 
 
 def main(argv):
@@ -13,8 +13,7 @@ def main(argv):
 
     data = np.loadtxt('./data/csv/iris_01.csv', delimiter = ',')
 
-    validation = KFold()
-    scores = validation.validate(NaiveBayes(), data)
+    scores = kfold(NaiveBayes(), data)
 
     print()
     print('Classification Experiment: Iris - K-Fold Cross Validation')
