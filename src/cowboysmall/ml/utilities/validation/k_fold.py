@@ -1,11 +1,16 @@
 import numpy as np
 
+from sklearn import preprocessing
+
 
 class KFold:
 
     def validate(self, classifier, data, k = 5, features = -1, shuffle = True):
         if shuffle:
             np.random.shuffle(data)
+
+        le = preprocessing.LabelEncoder()
+        le.fit(data[:, features])
 
         folds = np.array_split(data, k)
         scores = np.empty(k)
@@ -23,8 +28,8 @@ class KFold:
             X_t = test[:, :features]
             Y_t = test[:, features].astype(int)
 
-            classifier.fit(X, Y)
-            Y_hat = classifier.predict(X_t)
+            classifier.fit(X, le.transform(Y))
+            Y_hat = le.inverse_transform(classifier.predict(X_t))
 
             scores[i] = 100 * (Y_t == Y_hat).sum() / float(len(Y_t))
 
