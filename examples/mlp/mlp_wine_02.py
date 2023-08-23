@@ -25,9 +25,10 @@ def main(argv):
     sclr = preprocessing.StandardScaler().fit(X)
     X    = sclr.transform(X)
 
-    ohe = OneHotEncoder(Y)
+    ohe = OneHotEncoder()
+    ohe.fit(Y)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.transform(Y), train_size = 0.75)
 
     nn = Network()
     nn.add(InputLayer(11,   learning = 0.1, regular = 0.005, momentum = 0.01))
@@ -36,8 +37,8 @@ def main(argv):
     nn.add(OutputLayer(7))
     nn.fit(X, Y, batch = 600, epochs = 200)
 
-    P   = ohe.decode(nn.predict(X_t))
-    Y_t = ohe.decode(Y_t)
+    P   = ohe.inverse_transform(nn.predict(X_t))
+    Y_t = ohe.inverse_transform(Y_t)
 
     print()
     print()

@@ -21,7 +21,7 @@ def main(argv):
     X = data.iloc[:, :11]
     Y = data.iloc[:, 11]
 
-    X, X_t, Y, Y_true = model_selection.train_test_split(X, Y, train_size = 0.5)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.5)
 
     rf = RandomForest(cost = entropy, s_ratio = 0.75, dt_count = 9, f_count = 6)
     # rf = RandomForest(cost = gini, s_ratio = 0.75, dt_count = 9, f_count = 6)
@@ -35,15 +35,15 @@ def main(argv):
     print()
     print()
     print()
-    print('                   Result: {:.2f}% Correct'.format(100 * (Y_true == P).sum() / float(len(Y_true))))
+    print('                   Result: {:.2f}% Correct'.format(100 * (Y_t == P).sum() / float(len(Y_t))))
     print()
     print('    Classification Report:')
     print()
-    print(metrics.classification_report(Y_true, P))
+    print(metrics.classification_report(Y_t, P))
     print()
     print('         Confusion Matrix:')
     print()
-    print(confusion_matrix(Y_true, P))
+    print(confusion_matrix(Y_t, P))
     print()
 
 

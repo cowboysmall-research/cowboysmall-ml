@@ -1,2 +1,2 @@
 
-from cowboysmall.ml.utilities.validation.k_fold import *
+from .k_fold import *

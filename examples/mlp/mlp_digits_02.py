@@ -25,16 +25,17 @@ def main(argv):
     X_t = preprocessing.scale(test[:, :64])
     Y_t = test[:, 64].astype(int)
 
-    ohe = OneHotEncoder(np.concatenate((Y, Y_t), axis = 0))
+    ohe = OneHotEncoder()
+    ohe.fit(np.concatenate((Y, Y_t), axis = 0))
 
     nn = Network()
     nn.add(InputLayer(64,   learning = 0.25, regular = 0.001, momentum = 0.0125))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(100, learning = 0.25, regular = 0.001, momentum = 0, function = LeakyReLU()))
     nn.add(OutputLayer(10))
-    nn.fit(X, ohe.encode(Y), batch = 250, epochs = 500)
+    nn.fit(X, ohe.transform(Y), batch = 250, epochs = 500)
 
-    P = ohe.decode(nn.predict(X_t))
+    P = ohe.inverse_transform(nn.predict(X_t))
 
     print()
     print()

@@ -1,4 +1,6 @@
+import os
 import sys
+import gzip
 import warnings
 
 import numpy as np
@@ -10,8 +12,6 @@ from cowboysmall.ml.classifiers.nn.layer    import InputLayer, HiddenLayer, Outp
 from cowboysmall.ml.utilities.function      import LeakyReLU
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
-
-from examples.nn import load_fashion_data
 
 
 def main(argv):
@@ -25,16 +25,17 @@ def main(argv):
     X   = preprocessing.scale(X)
     X_t = preprocessing.scale(X_t)
 
-    ohe = OneHotEncoder(np.concatenate((Y, Y_t)))
+    ohe = OneHotEncoder()
+    ohe.fit(np.concatenate((Y, Y_t)))
 
     nn = Network()
     nn.add(InputLayer(784,  learning = 0.1, regular = 0.01, momentum = 0.01))
     nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0, function = LeakyReLU()))
     nn.add(HiddenLayer(256, learning = 0.1, regular = 0.01, momentum = 0, function = LeakyReLU()))
     nn.add(OutputLayer(10))
-    nn.fit(X, ohe.encode(Y), batch = 1200, epochs = 40)
+    nn.fit(X, ohe.transform(Y), batch = 1200, epochs = 40)
 
-    P = ohe.decode(nn.predict(X_t))
+    P = ohe.inverse_transform(nn.predict(X_t))
 
     print()
     print()
@@ -53,6 +54,18 @@ def main(argv):
     print()
     print(confusion_matrix(Y_t, P))
     print()
+
+
+def load_fashion_data(type):
+    labels_path = os.path.join('./data/gz', '%s-labels-idx1-ubyte.gz' % type)
+    with gzip.open(labels_path, 'rb') as lblpath:
+        labels = np.frombuffer(lblpath.read(), dtype = np.uint8, offset = 8)
+
+    images_path = os.path.join('./data/gz', '%s-images-idx3-ubyte.gz' % type)
+    with gzip.open(images_path, 'rb') as imgpath:
+        images = np.frombuffer(imgpath.read(), dtype = np.uint8, offset = 16).reshape(len(labels), 784)
+
+    return images, labels
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
 
-from cowboysmall.ml.utilities.function.activation import *
-from cowboysmall.ml.utilities.function.identity   import *
-from cowboysmall.ml.utilities.function.sigmoid    import *
+from .activation import *
+from .identity   import *
+from .sigmoid    import *

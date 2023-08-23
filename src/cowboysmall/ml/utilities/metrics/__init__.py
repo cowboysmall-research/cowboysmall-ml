@@ -1,2 +1,2 @@
 
-from cowboysmall.ml.utilities.metrics.confusion_matrix import *
+from .confusion_matrix import *

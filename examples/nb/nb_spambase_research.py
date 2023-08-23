@@ -27,13 +27,11 @@ def main(argv):
     print()
     print('Classification Experiment: Spambase - Comparison of Classifiers')
     print()
-    print()
-    print()
 
 
-    nb0 = nb_01.NaiveBayes()
-    nb0.fit(X, Y)
-    Y_hat1 = nb0.predict(X_t)
+    nb1 = nb_01.NaiveBayes()
+    nb1.fit(X, Y)
+    Y_hat1 = nb1.predict(X_t)
 
     print()
     print('       Spambase - Regular:')
@@ -50,9 +48,9 @@ def main(argv):
     print()
 
 
-    nb1 = nb_02.NaiveBayes()
-    nb1.fit(X, Y)
-    Y_hat2 = nb1.predict(X_t)
+    nb2 = nb_02.NaiveBayes()
+    nb2.fit(X, Y)
+    Y_hat2 = nb2.predict(X_t)
 
     print()
     print('    Spambase - Vectorised:')
@@ -80,11 +78,13 @@ def main(argv):
 
     if differences:
         for i in differences:
+            print()
             print('                    index: ', i)
-            # print('                  Regular: ', nb0.predict(X_t[i, :-1].values.reshape(1, X_t.shape[1] - 1))[0])
-            # print('               Vectorised: ', nb1.predict(pd.DataFrame(X_t.iloc[i, :-1].values.reshape(1, X_t.shape[1] - 1)))[0])
+            print('                  Regular: ', nb1.predict(X_t[i, :].reshape(1, X_t.shape[1]))[0])
+            print('               Vectorised: ', nb2.predict(X_t[i, :].reshape(1, X_t.shape[1]))[0])
             print()
     else:
+        print()
         print('           No Differences: ')
         print()
 

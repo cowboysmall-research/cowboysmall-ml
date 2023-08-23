@@ -16,13 +16,14 @@ def main(argv):
     np.seterr(all = 'ignore')
     warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
-    data = np.loadtxt('./data/csv/iris.csv', delimiter = ',')
+    data = np.loadtxt('./data/csv/iris_01.csv', delimiter = ',')
     X = preprocessing.scale(data[:, :4])
     Y = data[:, 4].astype(int)
 
-    ohe = OneHotEncoder(Y)
+    ohe = OneHotEncoder()
+    ohe.fit(Y)
 
-    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.encode(Y), train_size = 0.75)
+    X, X_t, Y, Y_t = model_selection.train_test_split(X, ohe.transform(Y), train_size = 0.75)
 
     nn = Network()
     nn.add(InputLayer(4,  learning = 0.1, regular = 0.01, momentum = 0.01, zero = False))
@@ -31,8 +32,8 @@ def main(argv):
     nn.add(OutputLayer(3))
     nn.fit(X, Y, batch = 100, epochs = 1000)
 
-    P   = ohe.decode(nn.predict(X_t))
-    Y_t = ohe.decode(Y_t)
+    P   = ohe.inverse_transform(nn.predict(X_t))
+    Y_t = ohe.inverse_transform(Y_t)
 
     print()
     print()
