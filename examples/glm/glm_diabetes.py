@@ -10,7 +10,6 @@ from cowboysmall.ml.utilities.metrics     import confusion_matrix
 
 def main(argv):
     np.random.seed(1337)
-    # np.seterr(all = 'ignore')
 
     data = np.loadtxt('./data/csv/diabetes.csv', delimiter = ',')
     X = preprocessing.scale(data[:, :8])
