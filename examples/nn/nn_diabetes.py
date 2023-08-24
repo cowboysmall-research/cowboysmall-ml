@@ -1,5 +1,4 @@
 import sys
-import warnings
 
 import numpy as np
 
@@ -14,8 +13,6 @@ from cowboysmall.ml.utilities.metrics       import confusion_matrix
 
 def main(argv):
     np.random.seed(1337)
-    np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     data = np.loadtxt('./data/csv/diabetes.csv', delimiter = ',')
     X = preprocessing.scale(data[:, :8])

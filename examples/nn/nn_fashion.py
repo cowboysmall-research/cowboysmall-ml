@@ -1,7 +1,6 @@
 import os
 import sys
 import gzip
-import warnings
 
 import numpy as np
 
@@ -17,7 +16,6 @@ from cowboysmall.ml.utilities.metrics       import confusion_matrix
 def main(argv):
     np.random.seed(1337)
     np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     X, Y     = load_fashion_data('train')
     X_t, Y_t = load_fashion_data('t10k')

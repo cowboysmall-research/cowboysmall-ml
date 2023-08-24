@@ -2,27 +2,28 @@ import sys
 
 import numpy as np
 
-from sklearn import model_selection, metrics
+from sklearn import model_selection, metrics, preprocessing
 
 from cowboysmall.ml.classifiers.nb.nb import NaiveBayes
-from cowboysmall.ml.utilities.metrics import confusion_matrix
 
 
 def main(argv):
     np.random.seed(1024)
 
-    data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
-    X = data[:, :57]
-    Y = data[:, 57].astype(int)
+    X = np.loadtxt('./data/csv/iris_02.csv', delimiter = ',', usecols = (0, 1, 2, 3))
+    Y = np.loadtxt('./data/csv/iris_02.csv', delimiter = ',', usecols = 4, dtype = str)
+
+    le = preprocessing.LabelEncoder()
+    le.fit(Y)
 
     X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.75)
 
     nb = NaiveBayes()
-    nb.fit(X, Y)
-    Y_hat = nb.predict(X_t)
+    nb.fit(X, le.transform(Y))
+    Y_hat = le.inverse_transform(nb.predict(X_t))
 
     print()
-    print('Classification Experiment: Spambase')
+    print('Classification Experiment: Iris')
     print()
     print()
     print()
@@ -35,7 +36,7 @@ def main(argv):
     print()
     print('         Confusion Matrix:')
     print()
-    print(confusion_matrix(Y_t, Y_hat))
+    print(metrics.confusion_matrix(Y_t, Y_hat))
     print()
 
 

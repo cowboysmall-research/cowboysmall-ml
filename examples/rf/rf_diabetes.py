@@ -1,20 +1,17 @@
 import sys
-import warnings
 
 import numpy  as np
 import pandas as pd
 
 from sklearn import model_selection, metrics
 
-from cowboysmall.ml.classifiers.rf.random_forest import RandomForest
-from cowboysmall.ml.classifiers.dt.cost          import entropy
-from cowboysmall.ml.utilities.metrics            import confusion_matrix
+from cowboysmall.ml.classifiers.rf.forest import RandomForest
+from cowboysmall.ml.classifiers.dt.cost   import entropy
+from cowboysmall.ml.utilities.metrics     import confusion_matrix
 
 
 def main(argv):
-    np.random.seed(1340)
-    np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
+    np.random.seed(1999)
 
     data = pd.read_csv('./data/csv/diabetes.csv', names = ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8', 'Y'])
     X = data.iloc[:, :8]

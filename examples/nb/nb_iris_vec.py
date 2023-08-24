@@ -1,5 +1,4 @@
 import sys
-import warnings
 
 import numpy as np
 
@@ -12,8 +11,6 @@ from cowboysmall.ml.utilities.preprocessing import LabelEncoder
 
 def main(argv):
     np.random.seed(1024)
-    np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     data = np.loadtxt('./data/csv/iris_01.csv', delimiter = ',')
     X = data[:, :4]

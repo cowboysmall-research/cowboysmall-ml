@@ -1,5 +1,4 @@
 import sys
-import warnings
 
 import numpy  as np
 import pandas as pd
@@ -13,8 +12,6 @@ from cowboysmall.ml.utilities.metrics   import confusion_matrix
 
 def main(argv):
     np.random.seed(1337)
-    np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     data = pd.read_csv('./data/csv/spambase.csv')
     X = data.iloc[:, :57]

@@ -1,5 +1,4 @@
 import sys
-import warnings
 
 import numpy as np
 
@@ -9,7 +8,6 @@ from cowboysmall.ml.utilities.validation import kfold
 
 def main(argv):
     np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
 
     data = np.loadtxt('./data/csv/spambase.csv', delimiter = ',')
 

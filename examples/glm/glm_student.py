@@ -1,5 +1,4 @@
 import sys
-import warnings
 
 import numpy as np
 
@@ -8,8 +7,7 @@ from cowboysmall.ml.utilities.plot        import scatterplot
 
 
 def main(argv):
-    np.seterr(all = 'ignore')
-    warnings.simplefilter(action = 'ignore', category = FutureWarning)
+    np.random.seed(1337)
 
     X = np.loadtxt('./data/csv/student_X.csv', delimiter = ',')
     Y = np.loadtxt('./data/csv/student_Y.csv', dtype = int)
