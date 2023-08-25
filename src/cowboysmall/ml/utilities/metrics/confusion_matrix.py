@@ -2,11 +2,10 @@ import numpy as np
 
 
 def confusion_matrix(y, y_hat):
-    labels = sorted(list(set(y) | set(y_hat)))
-    index  = dict((label, i) for i, label in enumerate(labels))
+    labels = np.unique(np.concatenate((y, y_hat)))
 
-    cm     = np.zeros(shape = (len(labels), len(labels)))
+    cm = np.zeros(shape = (labels.shape[0], labels.shape[0]))
     for (x, y) in zip(y, y_hat):
-        cm[index[x]][index[y]] += 1
+        cm[np.searchsorted(labels, x)][np.searchsorted(labels, y)] += 1
 
     return cm.astype(int)

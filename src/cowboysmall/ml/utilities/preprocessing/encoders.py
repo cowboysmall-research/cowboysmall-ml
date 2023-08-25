@@ -6,11 +6,7 @@ from abc import ABC, abstractmethod
 class Encoder(ABC):
 
     def fit(self, data):
-        items = np.unique(data)
-
-        self.enc = {item: i for i, item in enumerate(items)}
-        self.dec = {i: item for i, item in enumerate(items)}
-        self.dim = len(items)
+        self.items = np.unique(data)
 
     def transform(self, data):
         return np.array([self.encode(datum) for datum in data])
@@ -30,18 +26,18 @@ class Encoder(ABC):
 class OneHotEncoder(Encoder):
 
     def encode(self, datum):
-        encoded = [0] * self.dim
-        encoded[self.enc[datum]] = 1
+        encoded = [0] * len(self.items)
+        encoded[np.searchsorted(self.items, datum)] = 1
         return encoded
 
     def decode(self, datum):
-        return self.dec[datum.argmax()]
+        return self.items[datum.argmax()]
 
 
 class LabelEncoder(Encoder):
 
     def encode(self, datum):
-        return self.enc[datum]
+        return np.searchsorted(self.items, datum)
 
     def decode(self, datum):
-        return self.dec[datum]
+        return self.items[datum]

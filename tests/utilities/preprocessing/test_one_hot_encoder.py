@@ -5,7 +5,7 @@ import numpy as np
 from cowboysmall.ml.utilities.preprocessing import OneHotEncoder
 
 
-class TestOneHot(unittest.TestCase):
+class TestOneHotEncoder(unittest.TestCase):
 
     def test_one_hot_encode_empty(self):
         data    = np.array([2, 4, 3, 4, 3, 4, 5, 4, 5, 6])
