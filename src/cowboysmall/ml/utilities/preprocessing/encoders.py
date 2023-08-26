@@ -27,7 +27,7 @@ class OneHotEncoder(Encoder):
 
     def encode(self, datum):
         j = np.searchsorted(self.items, datum)
-        return np.array([i == j for i in range(len(self.items))], dtype = np.int8)
+        return np.array([i == j for i in range(len(self.items))]).astype(int)
 
     def decode(self, datum):
         return self.items[datum.argmax()]
