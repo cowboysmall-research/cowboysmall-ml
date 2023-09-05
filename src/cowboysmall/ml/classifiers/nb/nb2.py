@@ -1,7 +1,12 @@
 import numpy as np
 
+from cowboysmall.ml.utilities.function.distribution import Gaussian
+
 
 class NaiveBayes:
+
+    def __init__(self, function = Gaussian()):
+        self.function = function
 
     def fit(self, X, y):
         labels, counts = np.unique(y, return_counts = True)
@@ -14,7 +19,4 @@ class NaiveBayes:
         return np.apply_along_axis(np.argmax, 1, np.apply_along_axis(self.posterior, 1, X))
 
     def posterior(self, X):
-        return self.priors * np.prod(self.gaussian(X), axis = 1)
-
-    def gaussian(self, X):
-        return np.exp(-np.square(X - self.mean) / (2 * self.var)) / np.sqrt(2 * np.pi * self.var)
+        return self.priors * np.prod(self.function.f(X, self.mean, self.var), axis = 1)

@@ -8,6 +8,7 @@ from sklearn import model_selection, metrics
 from cowboysmall.ml.classifiers.nb.nb       import NaiveBayes
 from cowboysmall.ml.utilities.preprocessing import imbalanced
 from cowboysmall.ml.utilities.metrics       import confusion_matrix
+from cowboysmall.ml.utilities.preprocessing import LabelEncoder
 
 
 def main(argv):
@@ -17,11 +18,14 @@ def main(argv):
     X = data.drop(['quality'], axis = 1).values
     Y = data.quality.values
 
+    le = LabelEncoder()
+    le.fit(Y)
+
     X, X_t, Y, Y_t = model_selection.train_test_split(X, Y, train_size = 0.67)
 
     nb = NaiveBayes()
-    nb.fit(X, Y)
-    Y_hat = nb.predict(X_t)
+    nb.fit(X, le.transform(Y))
+    Y_hat = le.inverse_transform(nb.predict(X_t))
 
     print()
     print('Classification Experiment: White Wine')

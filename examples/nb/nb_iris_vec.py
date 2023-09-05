@@ -4,8 +4,8 @@ import numpy as np
 
 from sklearn import model_selection, metrics
 
-from cowboysmall.ml.classifiers.nb.nb2 import NaiveBayes
-from cowboysmall.ml.utilities.metrics  import confusion_matrix
+from cowboysmall.ml.classifiers.nb.nb2      import NaiveBayes
+from cowboysmall.ml.utilities.metrics       import confusion_matrix
 from cowboysmall.ml.utilities.preprocessing import LabelEncoder
 
 
