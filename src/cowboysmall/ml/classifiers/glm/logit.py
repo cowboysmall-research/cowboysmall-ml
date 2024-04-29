@@ -26,7 +26,8 @@ class LogisticRegression:
 
     def hessian(self, X):
         h = self.hypothesis(X)
-        return (X.T @ np.diag(h[:, 0]) @ np.diag(1 - h[:, 0]) @ X) / X.shape[0]
+        # return (X.T @ np.diag(h[:, 0]) @ np.diag(1 - h[:, 0]) @ X) / X.shape[0]
+        return (X @ np.diag(h[:, 0] @ (1 - h[:, 0])) @ X.T) / X.shape[0]
 
     def fit(self, X, y, tolerance = 0.00001, iterations = 50):
         X = self.add_intercept(X)

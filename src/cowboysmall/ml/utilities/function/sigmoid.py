@@ -4,6 +4,7 @@ import numpy as np
 class Logistic:
 
     def f(self, x):
+        # return (np.exp(x) / (1 + np.exp(x))) if x.any() < 0 else (1 / (1 + np.exp(-x)))
         return 1 / (1 + np.exp(-x))
 
     def f_prime(self, y):
