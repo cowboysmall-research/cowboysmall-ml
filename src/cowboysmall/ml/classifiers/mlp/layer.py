@@ -6,7 +6,7 @@ from cowboysmall.ml.utilities.function.sigmoid    import Logistic
 
 class ConnectedLayer:
 
-    def __init__(self, nodes, function = ReLU(), learning = 0.1, regular = 0, momentum = 0.1, zero = True):
+    def __init__(self, nodes, function = ReLU(), learning = 0.1, regular = 0.0, momentum = 0.1, zero = True):
         self.nodes    = nodes
         self.function = function
         self.learning = learning
